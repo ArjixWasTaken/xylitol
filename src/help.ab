@@ -4,17 +4,17 @@ import * from "./utils.ab"
 pub fun print_help() {
     echo "Usage: ./xylitol.sh <command> [flags]"
     echo ""
-    printf_colored("Xylitol", 96)
+    printf_colored("Xylitol", 92)
     printf(" - A tool for ")
-    printf_colored("fresh", 96)
+    printf_colored("fresh", 92)
     printf(" shell scripts.")
     echo ""
     echo ""
-    echo_colored("Flags: ", 94)
+    echo_colored("Flags: ", 96)
     echo "  -h, --help        Show this help message"
     echo "  -v, --version     Show version information"
     echo ""
-    echo_colored("Commands: ", 94)
+    echo_colored("Commands: ", 96)
     echo "  input             Prompt for some input"
     echo ""
     printf("Run ")

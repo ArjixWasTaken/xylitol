@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Written in [Amber](https://amber-lang.com/)
 # version: 0.4.0-alpha
-# date: 2025-11-25 04:18:21
+# date: 2025-11-25 04:36:52
 replace__0_v0() {
     local source=$1
     local search=$2
@@ -79,14 +79,14 @@ printf_colored__113_v0() {
 print_help__161_v0() {
     echo "Usage: ./xylitol.sh <command> [flags]"
     echo ""
-    printf_colored__113_v0 "Xylitol" 96;
+    printf_colored__113_v0 "Xylitol" 92;
     __AF_printf_colored113_v0__7_5="$__AF_printf_colored113_v0";
     echo "$__AF_printf_colored113_v0__7_5" > /dev/null 2>&1
     __AMBER_ARRAY_5=("");
     printf__99_v0 " - A tool for " __AMBER_ARRAY_5[@];
     __AF_printf99_v0__8_5="$__AF_printf99_v0";
     echo "$__AF_printf99_v0__8_5" > /dev/null 2>&1
-    printf_colored__113_v0 "fresh" 96;
+    printf_colored__113_v0 "fresh" 92;
     __AF_printf_colored113_v0__9_5="$__AF_printf_colored113_v0";
     echo "$__AF_printf_colored113_v0__9_5" > /dev/null 2>&1
     __AMBER_ARRAY_6=("");
@@ -95,13 +95,13 @@ print_help__161_v0() {
     echo "$__AF_printf99_v0__10_5" > /dev/null 2>&1
     echo ""
     echo ""
-    echo_colored__105_v0 "Flags: " 94;
+    echo_colored__105_v0 "Flags: " 96;
     __AF_echo_colored105_v0__13_5="$__AF_echo_colored105_v0";
     echo "$__AF_echo_colored105_v0__13_5" > /dev/null 2>&1
     echo "  -h, --help        Show this help message"
     echo "  -v, --version     Show version information"
     echo ""
-    echo_colored__105_v0 "Commands: " 94;
+    echo_colored__105_v0 "Commands: " 96;
     __AF_echo_colored105_v0__17_5="$__AF_echo_colored105_v0";
     echo "$__AF_echo_colored105_v0__17_5" > /dev/null 2>&1
     echo "  input             Prompt for some input"
@@ -254,7 +254,7 @@ fi
 print_input_help__240_v0() {
     echo "Usage: ./xylitol.sh input [flags]"
     echo ""
-    printf_colored__191_v0 "input" 96;
+    printf_colored__191_v0 "input" 92;
     __AF_printf_colored191_v0__7_5="$__AF_printf_colored191_v0";
     echo "$__AF_printf_colored191_v0__7_5" > /dev/null 2>&1
     __AMBER_ARRAY_22=("");
@@ -263,7 +263,7 @@ print_input_help__240_v0() {
     echo "$__AF_printf99_v0__8_5" > /dev/null 2>&1
     echo ""
     echo ""
-    echo_colored__105_v0 "Flags: " 94;
+    echo_colored__105_v0 "Flags: " 96;
     __AF_echo_colored105_v0__11_5="$__AF_echo_colored105_v0";
     echo "$__AF_echo_colored105_v0__11_5" > /dev/null 2>&1
     echo "  -h, --help                 Show this help message"
