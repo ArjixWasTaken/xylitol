@@ -1,0 +1,34 @@
+import * from "./mod.ab"
+import * from "./help.ab"
+import * from "std/text"
+
+pub fun execute_input(parameters: [Text]): Text {
+    let prompt = "> "
+    let placeholder = "Type here..."
+    let header = ""
+    let password = false
+
+    for param in parameters {
+        if match_regex(param, "^-h$") or match_regex(param, "^--help$") {
+            print_input_help()
+            exit(0)
+        }
+        if match_regex(param, "^--prompt=.*$") {
+            let result = split(param, "=")
+            prompt = result[1]
+        }
+        if match_regex(param, "^--placeholder=.*$") {
+            let result = split(param, "=")
+            placeholder = result[1]
+        }
+        if match_regex(param, "^--header=.*$") {
+            let result = split(param, "=")
+            header = result[1]
+        }
+        if match_regex(param, "^--password$") {
+            password = true
+        }
+    }
+
+    return xyl_input(prompt, placeholder, header, password)
+}

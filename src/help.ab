@@ -1,0 +1,24 @@
+import * from "std/env"
+import * from "./utils.ab"
+
+pub fun print_help() {
+    echo "Usage: ./xylitol.sh <command> [flags]"
+    echo ""
+    printf_colored("Xylitol", 96)
+    printf(" - A tool for ")
+    printf_colored("fresh", 96)
+    printf(" shell scripts.")
+    echo ""
+    echo ""
+    echo_colored("Flags: ", 94)
+    echo "  -h, --help        Show this help message"
+    echo "  -v, --version     Show version information"
+    echo ""
+    echo_colored("Commands: ", 94)
+    echo "  input             Prompt for some input"
+    echo ""
+    printf("Run ")
+    printf_colored("./xylitol.sh <command> --help", 93)
+    printf(" for more information on a command.")
+    echo ""
+}

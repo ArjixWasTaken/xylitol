@@ -1,0 +1,54 @@
+import { printf } from "std/env"
+
+pub fun get_char(): Text {
+    let char = trust $ read -n 1 key; printf "%s" "\$key"$
+    return char
+}
+
+pub fun get_key(): Text {
+    let var = trust $ read -rsn1 k; [[ \$k == \$'\e' ]] && read -rsn2 r && k+=\$r; printf '%q' "\$k" $
+
+    if {
+        var == "$'\E[A'": return "UP"
+        var == "$'\E[B'": return "DOWN"
+        var == "$'\E[C'": return "RIGHT"
+        var == "$'\E[D'": return "LEFT"
+        var == "$'\177'": return "BACKSPACE"
+        var == "''": return "INPUT"
+        else: return var
+    }
+}
+
+pub fun printf_colored(message: Text, color: Num): Null {
+    /// Prints a text with a specified color.
+    printf("\x1b[{color as Text}m%s\x1b[0m", [message])
+}
+
+pub fun printf_err(format: Text, args: [Text] = [""]): Null {
+    trust $ {nameof args}=("{format}" "\$\{{nameof args}[@]}") $
+    trust $ printf "\$\{{nameof args}[@]}" >&2 $
+}
+
+pub fun printf_err_colored(message: Text, color: Num): Null {
+    /// Prints an error message with a specified color.
+    printf_err("\x1b[{color as Text}m%s\x1b[0m", [message])
+}
+
+pub fun colored(message: Text, color: Num): Text {
+    /// Returns a text wrapped in color codes.
+    return "\x1b[{color as Text}m" + message + "\x1b[0m"
+}
+
+/// remove `cnt` characters from the terminal.
+pub fun remove(cnt: Num): Null {
+    for i in 0..cnt {
+        printf_err("\b \b")
+    }
+}
+
+/// remove `cnt` lines from the terminal.
+pub fun remove_line(cnt: Num): Null {
+    for i in 0..cnt {
+        printf_err("\e[A\e[K")
+    }
+}

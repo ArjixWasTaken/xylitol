@@ -1,0 +1,18 @@
+import * from "std/env"
+import * from "../utils.ab"
+
+pub fun print_input_help(): Null {
+    echo "Usage: ./xylitol.sh input [flags]"
+    echo ""
+    printf_colored("input", 96)
+    printf(" - Prompt for some input from the user.")
+    echo ""
+    echo ""
+    echo_colored("Flags: ", 94)
+    echo "  -h, --help                 Show this help message"
+    echo "  --placeholder=\"<text>\"     Set the placeholder text (default: 'Type here...')"
+    echo "  --prompt=\"<text>\"          Set the prompt text (default: '> ')"
+    echo "  --header=\"<text>\"          Set a header text to display above the prompt (ANSI escape supported)"
+    echo "  --password                 Hide input (for password entry)"
+    echo ""
+}

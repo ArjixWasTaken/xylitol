@@ -1,0 +1,51 @@
+import * from "std/env"
+import * from "../utils.ab"
+
+/// Prompts the user single-line input with a placeholder.
+///
+/// ### Parameters
+/// - `prompt`: The prompt message to display to the user.
+/// - `placeholder`: The placeholder text to show in the input field.
+/// - `header`: An optional header message to display above the prompt. (ANSI supported)
+/// - `password`: A boolean indicating whether the input should be masked.
+pub fun xyl_input(
+    prompt: Text, 
+    placeholder: Text,
+    header: Text = "",
+    password: Bool = false,
+): Text {
+    if header != "" {
+        printf(header + "\n")
+    }
+
+    printf_err("\n\n")
+    // printf_err("\e[2B")
+    printf_err_colored("press ", 2)
+    printf_err_colored("enter", 0)
+    printf_err_colored(" to submit", 2)
+    printf_err("\e[2A\e[99999D")
+
+    printf_err(prompt)
+    printf_err_colored(placeholder, 90)
+
+
+    let char = get_char()
+    remove(len(prompt) + len(placeholder) + 10)
+
+    let text = ""
+    if not password {
+        text = trust $ read -e -i {char} -p "{prompt}" text; printf "%s" "\$text" $
+    } else {
+        text = trust $ read -es -i {char} -p "{prompt}" text; printf "%s" "\$text" $
+    }
+
+    if header {
+        printf_err("\n\n")
+        remove_line(3)
+    } else {
+        printf_err("\n\n")
+        remove_line(2)
+    }
+
+    return text
+}

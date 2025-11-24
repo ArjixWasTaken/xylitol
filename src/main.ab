@@ -1,0 +1,35 @@
+#!/usr/bin/env amber
+import * from "./utils.ab"
+import { printf } from "std/env"
+import { print_help } from "./help.ab"
+import { execute_input } from "./input/exec.ab"
+
+const VERSION = "0.1.0"
+const AMBER_VERSION = "0.4.0"
+
+main(arguments) {
+    if {
+        arguments[1] == "input": {
+            echo execute_input(arguments)
+        }
+        arguments[1] == "help" or arguments[1] == "--help" or arguments[1] == "-h": {
+            print_help()
+        }
+
+        arguments[1] == "version" or arguments[1] == "--version" or arguments[1] == "-v": {
+            printf("xylitol.sh version: ")
+            printf_colored(VERSION, 93)
+            echo ""
+            echo ""
+            printf_colored("written in ", 90)
+            printf_colored("🧡Amber", 33)
+            printf_colored(" " + AMBER_VERSION, 90)
+        }
+
+        else: {
+            print_help()
+            printf_colored("Error: ", 91)
+            echo "Unknown command '" + arguments[1] + "'"
+        }
+    }
+}
