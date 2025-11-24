@@ -22,6 +22,9 @@ amber build src/main.ab xylitol.sh
 ## Input
 Prompt for input with a simple command.
 
+![화면 기록 2025-11-25 오전 5 01 35](https://github.com/user-attachments/assets/7a5f9e8a-ea30-4b93-b9f9-459cb3ae6736)
+
+
 ```bash
 ./xylitol.sh input > answer.txt
 ./xylitol.sh input --prompt="Enter password: " --password > password.txt
