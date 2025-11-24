@@ -29,7 +29,7 @@ Prompt for input with a simple command.
 
 ### Tested on
 ```
-- ARM macOS
+- macOS 15+ / iTerm2 3.6.2+
   - GNU bash 5.3.3+
   - Bash subshell in zsh(oh-my-zsh) 5.9+
   - Bash subshell in nushell 0.101.0+
