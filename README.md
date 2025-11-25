@@ -26,8 +26,8 @@ Choose an option from a list of choices
 ![화면 기록 2025-11-25 오후 1 10 13](https://github.com/user-attachments/assets/38a404bf-f141-4537-9ffd-79a0ff2cb0b1)
 
 ```bash
-cat songs.txt | ./xylitol.sh
-cat foods.txt | ./xylitol.sh --header "Grocery Shopping"
+cat songs.txt | ./xylitol.sh choose
+cat foods.txt | ./xylitol.sh choose --header "Grocery Shopping"
 ```
 
 

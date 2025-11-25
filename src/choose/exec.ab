@@ -3,10 +3,19 @@ import * from "./help.ab"
 import * from "std/text"
 import * from "../utils.ab"
 
+fun read_stdin_options(): [Text] {
+    let options = [Text]
+    let is_tty = trust $ [ -t 0 ] && echo "true" || echo "false" $
+    if is_tty == "false" {
+        trust $ while IFS= read -r line || [[ -n "\$line" ]]; do {nameof options}+=("\$line"); done $
+    }
+    return options
+}
+
 pub fun execute_choose(parameters: [Text]): Text {
     let cursor = "> "
     let header = colored("Choose:", 34)
-    let options = [Text]
+    let options = read_stdin_options()
 
     for param in parameters[2..9999] {
         if {

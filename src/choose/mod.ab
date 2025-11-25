@@ -6,11 +6,11 @@ pub fun xyl_choose(
     cursor: Text = "> ",
     header: Text = "\e[96mChoose:\e[0m",
 ): Text {
-    trust $ stty -echo $
+    trust $ stty -echo < /dev/tty $
 
     if len(options) == 0 {
         eprintf_colored("No options provided.\n", 31)
-        trust $ stty echo $
+        trust $ stty echo < /dev/tty $
         exit(1)
     }
 
@@ -89,6 +89,6 @@ pub fun xyl_choose(
         remove_line(len(options) + 6)
     }
 
-    trust $ stty echo $
+    trust $ stty echo < /dev/tty $
     return options[selected]
 }
