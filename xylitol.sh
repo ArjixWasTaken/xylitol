@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Written in [Amber](https://amber-lang.com/)
 # version: 0.4.0-alpha
-# date: 2025-11-26 04:46:32
+# date: 2025-11-26 04:48:02
 replace__0_v0() {
     local source=$1
     local search=$2
