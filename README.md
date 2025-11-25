@@ -19,6 +19,7 @@ amber build src/main.ab xylitol.sh
 ## Commands
 * [`choose`](#choose): Choose an option from a list of choices
 * [`input`](#input): Prompt the user for input.
+* [`confirm`](#confirm): Prompt the user for confirmation (yes/no).
 
 ## Choose
 Choose an option from a list of choices
@@ -43,6 +44,15 @@ Prompt for input with a simple command.
 ```
 
 
+## Confirm
+Prompt the user for confirmation (yes/no).
+
+```bash
+./xylitol.sh confirm && rm file.txt || echo "File not removed"
+```
+
+
+
 ### Tested on
 ```
 - macOS 15+ / iTerm2 3.6.2+
@@ -50,3 +60,4 @@ Prompt for input with a simple command.
   - Bash subshell in zsh(oh-my-zsh) 5.9+
   - Bash subshell in nushell 0.101.0+
 ```
+
