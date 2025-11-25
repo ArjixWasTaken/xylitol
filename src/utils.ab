@@ -1,4 +1,5 @@
 import { printf } from "std/env"
+import { join } from "std/text"
 
 pub fun get_char(): Text {
     let char = trust $ read -n 1 key; printf "%s" "\$key"$
@@ -6,8 +7,7 @@ pub fun get_char(): Text {
 }
 
 pub fun get_key(): Text {
-    let var = trust $ read -rsn1 k; [[ \$k == \$'\e' ]] && read -rsn2 r && k+=\$r; printf '%q' "\$k" $
-
+    let var = trust $ read -rsn1 k; if [[ "\$k" == \$'\e' ]]; then read -rsn2 r; k+=\$r; fi; printf '%q' "\$k" $
     if {
         var == "$'\E[A'": return "UP"
         var == "$'\E[B'": return "DOWN"
@@ -24,31 +24,65 @@ pub fun printf_colored(message: Text, color: Num): Null {
     printf("\x1b[{color as Text}m%s\x1b[0m", [message])
 }
 
-pub fun printf_err(format: Text, args: [Text] = [""]): Null {
+pub fun eprintf(format: Text, args: [Text] = [""]): Null {
     trust $ {nameof args}=("{format}" "\$\{{nameof args}[@]}") $
     trust $ printf "\$\{{nameof args}[@]}" >&2 $
 }
 
-pub fun printf_err_colored(message: Text, color: Num): Null {
+pub fun eprintf_colored(message: Text, color: Num): Null {
     /// Prints an error message with a specified color.
-    printf_err("\x1b[{color as Text}m%s\x1b[0m", [message])
+    eprintf("\x1b[{color as Text}m%s\x1b[0m", [message])
 }
 
 pub fun colored(message: Text, color: Num): Text {
     /// Returns a text wrapped in color codes.
-    return "\x1b[{color as Text}m" + message + "\x1b[0m"
+    return "\e[{color as Text}m" + message + "\e[0m"
 }
 
 /// remove `cnt` characters from the terminal.
 pub fun remove(cnt: Num): Null {
+    let remove_text = [Text]
     for i in 0..cnt {
-        printf_err("\b \b")
+        remove_text += ["\b \b"]
     }
+    eprintf(join(remove_text, ""))
 }
 
 /// remove `cnt` lines from the terminal.
 pub fun remove_line(cnt: Num): Null {
     for i in 0..cnt {
-        printf_err("\e[A\e[K")
+        eprintf("\e[A\e[K")
     }
 }
+
+pub fun print_blank(cnt: Num): Null {
+    /// Prints blank spaces.
+    for _ in 0..cnt {
+        eprintf(" ")
+    }
+}
+
+
+/// move the cursor down `cnt` lines.
+pub fun go_down(cnt: Num): Null {
+    for i in 0..cnt {
+        eprintf("\n")
+    }
+}
+
+/// move the cursor up `cnt` lines.
+pub fun go_up(cnt: Num): Null {
+    for i in 0..cnt {
+        eprintf("\e[1A")
+    }
+}
+
+// move the cursor up or down `cnt` lines.
+pub fun go_up_or_down(cnt: Num): Null {
+    if cnt > 0 {
+        go_down(cnt)
+    } else {
+        go_up(-cnt)
+    }
+}
+

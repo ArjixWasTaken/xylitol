@@ -1,0 +1,94 @@
+import * from "std/env"
+import * from "../utils.ab"
+
+pub fun xyl_choose(
+    options: [Text],
+    cursor: Text = "> ",
+    header: Text = "\e[96mChoose:\e[0m",
+): Text {
+    trust $ stty -echo $
+
+    if len(options) == 0 {
+        eprintf_colored("No options provided.\n", 31)
+        trust $ stty echo $
+        exit(1)
+    }
+
+    if header != "" {
+        eprintf(header + "\n")
+    }
+
+    go_down(len(options) + 1)
+    eprintf_colored("↑↓", 0)
+    eprintf_colored(" select", 2)
+    eprintf_colored(" • ", 90)
+    eprintf_colored("enter", 0)
+    eprintf_colored(" confirm", 2)
+    go_up(len(options) + 1)
+    eprintf("\e[9999D")
+
+    let selected = 0
+
+    for i in 0..len(options) {
+        if i == selected {
+            eprintf_colored(cursor + options[i] + "\n", 32)
+        } else {
+            print_blank(len(cursor))
+            eprintf(options[i] + "\n")
+        }
+    }
+
+    loop {
+        let key = get_key()
+
+        let prev_selected = selected
+
+        if {
+            key == "UP" {
+                if selected == 0 {
+                    selected = len(options) - 1
+                } else {
+                    selected = selected - 1
+                }
+            }
+            key == "DOWN" {
+                if selected == len(options) - 1 {
+                    selected = 0
+                } else {
+                    selected = selected + 1
+                }
+            }
+            key == "INPUT" {
+                break
+            }
+            else: continue
+        }
+
+        if prev_selected != selected {
+            go_up(len(options) - prev_selected)
+            eprintf("\e[K")
+            print_blank(len(cursor))
+            eprintf(options[prev_selected])
+
+            let diff = selected - prev_selected
+            go_up_or_down(diff)
+            eprintf("\e[9999D")
+            eprintf("\e[K")
+            eprintf_colored(cursor + options[selected], 32)
+
+            go_down(len(options) - selected)
+            eprintf("\e[9999D")
+        }
+    }
+
+    if header != "" {
+        go_down(6)
+        remove_line(len(options) + 7)
+    } else {
+        go_down(6)
+        remove_line(len(options) + 6)
+    }
+
+    trust $ stty echo $
+    return options[selected]
+}

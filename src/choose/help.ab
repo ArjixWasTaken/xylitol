@@ -1,0 +1,19 @@
+import * from "std/env"
+import * from "../utils.ab"
+
+pub fun print_choose_help(): Null {
+    echo "Usage: ./xylitol.sh choose [<options> ...] [flags]"
+    echo ""
+    printf_colored("choose", 92)
+    printf(" - Choose from a list of options.")
+    echo ""
+    echo ""
+    echo_colored("Arguments: ", 96)
+    echo "  [<options> ...]        List of options to choose from"
+    echo ""
+    echo_colored("Flags: ", 96)
+    echo "  -h, --help             Show this help message"
+    echo "  --cursor=\"<text>\"      Set the cursor text (default: '> ')"
+    echo "  --header=\"<text>\"      Set a header text to display above the options (ANSI escape supported)"
+    echo ""
+}

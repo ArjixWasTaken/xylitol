@@ -1,0 +1,32 @@
+import * from "./mod.ab"
+import * from "./help.ab"
+import * from "std/text"
+import * from "../utils.ab"
+
+pub fun execute_choose(parameters: [Text]): Text {
+    let cursor = "> "
+    let header = colored("Choose:", 34)
+    let options = [Text]
+
+    for param in parameters[2..9999] {
+        if {
+            match_regex(param, "^-h$") or match_regex(param, "^--help$") {
+                print_choose_help()
+                exit(0)
+            }
+            match_regex(param, "^--cursor=.*$") {
+                let result = split(param, "=")
+                cursor = result[1]
+            }
+            match_regex(param, "^--header=.*$") {
+                let result = split(param, "=")
+                header = result[1]
+            }
+            else {
+                options += [param]
+            }
+        }
+    }
+
+    return xyl_choose(options, cursor, header)
+}

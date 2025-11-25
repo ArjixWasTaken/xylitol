@@ -3,6 +3,7 @@ import * from "./utils.ab"
 import { printf } from "std/env"
 import { print_help } from "./help.ab"
 import { execute_input } from "./input/exec.ab"
+import { execute_choose } from "./choose/exec.ab"
 
 const VERSION = "0.1.0"
 const AMBER_VERSION = "0.4.0"
@@ -11,6 +12,9 @@ main(arguments) {
     if {
         arguments[1] == "input": {
             echo execute_input(arguments)
+        }
+        arguments[1] == "choose": {
+            echo execute_choose(arguments)
         }
         arguments[1] == "help" or arguments[1] == "--help" or arguments[1] == "-h": {
             print_help()

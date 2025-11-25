@@ -15,36 +15,38 @@ pub fun xyl_input(
     password: Bool = false,
 ): Text {
     if header != "" {
-        printf(header + "\n")
+        eprintf(header + "\n")
     }
 
-    printf_err("\n\n")
-    // printf_err("\e[2B")
-    printf_err_colored("press ", 2)
-    printf_err_colored("enter", 0)
-    printf_err_colored(" to submit", 2)
-    printf_err("\e[2A\e[99999D")
+    go_down(2)
+    eprintf_colored("enter", 0)
+    eprintf_colored(" submit", 2)
+    go_up(2)
+    eprintf("\e[99999D")
 
-    printf_err(prompt)
-    printf_err_colored(placeholder, 90)
+    eprintf(prompt)
+    eprintf_colored(placeholder, 90)
 
-
+    trust $ stty -echo $
     let char = get_char()
-    remove(len(prompt) + len(placeholder) + 10)
+    remove(len(prompt))
+    remove(len(placeholder) + 1)
 
     let text = ""
     if not password {
+        trust $ stty echo $
         text = trust $ read -e -i {char} -p "{prompt}" text; printf "%s" "\$text" $
     } else {
+        trust $ stty echo $
         text = trust $ read -es -i {char} -p "{prompt}" text; printf "%s" "\$text" $
     }
 
-    if header {
-        printf_err("\n\n")
-        remove_line(3)
+    if header != "" {
+        go_down(2)
+        remove_line(4)
     } else {
-        printf_err("\n\n")
-        remove_line(2)
+        go_down(2)
+        remove_line(3)
     }
 
     return text
