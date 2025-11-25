@@ -2,12 +2,12 @@ import { printf } from "std/env"
 import { join } from "std/text"
 
 pub fun get_char(): Text {
-    let char = trust $ read -n 1 key; printf "%s" "\$key"$
+    let char = trust $ read -n 1 key < /dev/tty; printf "%s" "\$key"$
     return char
 }
 
 pub fun get_key(): Text {
-    let var = trust $ read -rsn1 k; if [[ "\$k" == \$'\e' ]]; then read -rsn2 r; k+=\$r; fi; printf '%q' "\$k" $
+    let var = trust $ read -rsn1 k < /dev/tty; if [[ "\$k" == \$'\e' ]]; then read -rsn2 r < /dev/tty; k+=\$r; fi; printf '%q' "\$k" $
     if {
         var == "$'\E[A'": return "UP"
         var == "$'\E[B'": return "DOWN"

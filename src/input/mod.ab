@@ -35,10 +35,10 @@ pub fun xyl_input(
     let text = ""
     if not password {
         trust $ stty echo $
-        text = trust $ read -e -i {char} -p "{prompt}" text; printf "%s" "\$text" $
+        text = trust $ read -e -i {char} -p "{prompt}" text < /dev/tty; printf "%s" "\$text" $
     } else {
         trust $ stty echo $
-        text = trust $ read -es -i {char} -p "{prompt}" text; printf "%s" "\$text" $
+        text = trust $ read -es -i {char} -p "{prompt}" text < /dev/tty; printf "%s" "\$text" $
     }
 
     if header != "" {
