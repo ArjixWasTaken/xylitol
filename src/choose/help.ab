@@ -13,6 +13,8 @@ pub fun print_choose_help(): Null {
     echo ""
     echo_colored("Flags: ", 96)
     echo "  -h, --help             Show this help message"
+    echo "  --limit=<number>       Enable multi-selection mode with a limit of selections"
+    echo "  --no-limit             Enable multi-selection mode with no limit"
     echo "  --cursor=\"<text>\"      Set the cursor text (default: '> ')"
     echo "  --header=\"<text>\"      Set a header text to display above the options (ANSI escape supported)"
     echo ""

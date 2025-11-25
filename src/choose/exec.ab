@@ -16,6 +16,8 @@ pub fun execute_choose(parameters: [Text]): Text {
     let cursor = "> "
     let header = colored("Choose:", 34)
     let options = read_stdin_options()
+    let multi = false
+    let limit = -1
 
     for param in parameters[2..9999] {
         if {
@@ -31,10 +33,26 @@ pub fun execute_choose(parameters: [Text]): Text {
                 let result = split(param, "=")
                 header = result[1]
             }
+            match_regex(param, "^--limit=.*$") {
+                let result = split(param, "=")
+                limit = parse_number(result[1]) failed {
+                    eprintf_colored("Invalid limit value: " + result[1] + "\n", 31)
+                    exit(1)
+                }
+                multi = true
+            }
+            match_regex(param, "^--no-limit$") {
+                multi = true
+            }
             else {
                 options += [param]
             }
         }
+    }
+
+    if multi {
+        let results = xyl_multi_choose(options, cursor, header, limit)
+        return join(results, "\n")
     }
 
     return xyl_choose(options, cursor, header)

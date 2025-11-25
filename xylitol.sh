@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Written in [Amber](https://amber-lang.com/)
 # version: 0.4.0-alpha
-# date: 2025-11-25 13:33:24
+# date: 2025-11-25 15:10:55
 replace__0_v0() {
     local source=$1
     local search=$2
@@ -25,6 +25,17 @@ join__6_v0() {
     __AMBER_VAL_1=$( IFS="${delimiter}" ; echo "${list[*]}" );
     __AS=$?;
     __AF_join6_v0="${__AMBER_VAL_1}";
+    return 0
+}
+parse_number__12_v0() {
+    local text=$1
+     [ -n "${text}" ] && [ "${text}" -eq "${text}" ] 2>/dev/null ;
+    __AS=$?;
+if [ $__AS != 0 ]; then
+__AF_parse_number12_v0=''
+return $__AS
+fi
+    __AF_parse_number12_v0="${text}";
     return 0
 }
 match_regex__17_v0() {
@@ -492,13 +503,14 @@ xyl_choose__349_v0() {
     local options=("${!1}")
     local cursor=$2
     local header=$3
+    local vim_mode=$4
      stty -echo < /dev/tty ;
     __AS=$?
     if [ $(echo "${#options[@]}" '==' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
         eprintf_colored__329_v0 "No options provided.
 " 31;
-        __AF_eprintf_colored329_v0__12_9="$__AF_eprintf_colored329_v0";
-        echo "$__AF_eprintf_colored329_v0__12_9" > /dev/null 2>&1
+        __AF_eprintf_colored329_v0__13_9="$__AF_eprintf_colored329_v0";
+        echo "$__AF_eprintf_colored329_v0__13_9" > /dev/null 2>&1
          stty echo < /dev/tty ;
         __AS=$?
         exit 1
@@ -507,66 +519,72 @@ fi
         __AMBER_ARRAY_33=("");
         eprintf__328_v0 "${header}""
 " __AMBER_ARRAY_33[@];
-        __AF_eprintf328_v0__18_9="$__AF_eprintf328_v0";
-        echo "$__AF_eprintf328_v0__18_9" > /dev/null 2>&1
+        __AF_eprintf328_v0__19_9="$__AF_eprintf328_v0";
+        echo "$__AF_eprintf328_v0__19_9" > /dev/null 2>&1
 fi
     go_down__334_v0 $(echo "${#options[@]}" '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-    __AF_go_down334_v0__21_5="$__AF_go_down334_v0";
-    echo "$__AF_go_down334_v0__21_5" > /dev/null 2>&1
-    eprintf_colored__329_v0 "↑↓" 0;
-    __AF_eprintf_colored329_v0__22_5="$__AF_eprintf_colored329_v0";
-    echo "$__AF_eprintf_colored329_v0__22_5" > /dev/null 2>&1
+    __AF_go_down334_v0__22_5="$__AF_go_down334_v0";
+    echo "$__AF_go_down334_v0__22_5" > /dev/null 2>&1
+    if [ ${vim_mode} != 0 ]; then
+        eprintf_colored__329_v0 "↑↓/jk" 0;
+        __AF_eprintf_colored329_v0__24_9="$__AF_eprintf_colored329_v0";
+        echo "$__AF_eprintf_colored329_v0__24_9" > /dev/null 2>&1
+else
+        eprintf_colored__329_v0 "↑↓" 0;
+        __AF_eprintf_colored329_v0__26_9="$__AF_eprintf_colored329_v0";
+        echo "$__AF_eprintf_colored329_v0__26_9" > /dev/null 2>&1
+fi
     eprintf_colored__329_v0 " select" 2;
-    __AF_eprintf_colored329_v0__23_5="$__AF_eprintf_colored329_v0";
-    echo "$__AF_eprintf_colored329_v0__23_5" > /dev/null 2>&1
+    __AF_eprintf_colored329_v0__28_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__28_5" > /dev/null 2>&1
     eprintf_colored__329_v0 " • " 90;
-    __AF_eprintf_colored329_v0__24_5="$__AF_eprintf_colored329_v0";
-    echo "$__AF_eprintf_colored329_v0__24_5" > /dev/null 2>&1
+    __AF_eprintf_colored329_v0__29_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__29_5" > /dev/null 2>&1
     eprintf_colored__329_v0 "enter" 0;
-    __AF_eprintf_colored329_v0__25_5="$__AF_eprintf_colored329_v0";
-    echo "$__AF_eprintf_colored329_v0__25_5" > /dev/null 2>&1
+    __AF_eprintf_colored329_v0__30_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__30_5" > /dev/null 2>&1
     eprintf_colored__329_v0 " confirm" 2;
-    __AF_eprintf_colored329_v0__26_5="$__AF_eprintf_colored329_v0";
-    echo "$__AF_eprintf_colored329_v0__26_5" > /dev/null 2>&1
+    __AF_eprintf_colored329_v0__31_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__31_5" > /dev/null 2>&1
     go_up__335_v0 $(echo "${#options[@]}" '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-    __AF_go_up335_v0__27_5="$__AF_go_up335_v0";
-    echo "$__AF_go_up335_v0__27_5" > /dev/null 2>&1
+    __AF_go_up335_v0__32_5="$__AF_go_up335_v0";
+    echo "$__AF_go_up335_v0__32_5" > /dev/null 2>&1
     __AMBER_ARRAY_34=("");
     eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_34[@];
-    __AF_eprintf328_v0__28_5="$__AF_eprintf328_v0";
-    echo "$__AF_eprintf328_v0__28_5" > /dev/null 2>&1
+    __AF_eprintf328_v0__33_5="$__AF_eprintf328_v0";
+    echo "$__AF_eprintf328_v0__33_5" > /dev/null 2>&1
     local selected=0
     for i in $(seq 0 $(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')); do
         if [ $(echo ${i} '==' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
             eprintf_colored__329_v0 "${cursor}""${options[${i}]}""
 " 32;
-            __AF_eprintf_colored329_v0__34_13="$__AF_eprintf_colored329_v0";
-            echo "$__AF_eprintf_colored329_v0__34_13" > /dev/null 2>&1
+            __AF_eprintf_colored329_v0__39_13="$__AF_eprintf_colored329_v0";
+            echo "$__AF_eprintf_colored329_v0__39_13" > /dev/null 2>&1
 else
             __AMBER_LEN="${cursor}";
             print_blank__333_v0 "${#__AMBER_LEN}";
-            __AF_print_blank333_v0__36_13="$__AF_print_blank333_v0";
-            echo "$__AF_print_blank333_v0__36_13" > /dev/null 2>&1
+            __AF_print_blank333_v0__41_13="$__AF_print_blank333_v0";
+            echo "$__AF_print_blank333_v0__41_13" > /dev/null 2>&1
             __AMBER_ARRAY_35=("");
             eprintf__328_v0 "${options[${i}]}""
 " __AMBER_ARRAY_35[@];
-            __AF_eprintf328_v0__37_13="$__AF_eprintf328_v0";
-            echo "$__AF_eprintf328_v0__37_13" > /dev/null 2>&1
+            __AF_eprintf328_v0__42_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__42_13" > /dev/null 2>&1
 fi
 done
     while :
 do
         get_key__326_v0 ;
-        __AF_get_key326_v0__42_19="${__AF_get_key326_v0}";
-        local key="${__AF_get_key326_v0__42_19}"
+        __AF_get_key326_v0__47_19="${__AF_get_key326_v0}";
+        local key="${__AF_get_key326_v0__47_19}"
         local prev_selected=${selected}
-        if [ $([ "_${key}" != "_UP" ]; echo $?) != 0 ]; then
+        if [ $(echo $([ "_${key}" != "_UP" ]; echo $?) '||' $(echo ${vim_mode} '&&' $([ "_${key}" != "_k" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
             if [ $(echo ${selected} '==' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
                 selected=$(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
 else
                 selected=$(echo ${selected} '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
 fi
-elif [ $([ "_${key}" != "_DOWN" ]; echo $?) != 0 ]; then
+elif [ $(echo $([ "_${key}" != "_DOWN" ]; echo $?) '||' $(echo ${vim_mode} '&&' $([ "_${key}" != "_j" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
             if [ $(echo ${selected} '==' $(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
                 selected=0
 else
@@ -579,72 +597,300 @@ else
 fi
         if [ $(echo ${prev_selected} '!=' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
             go_up__335_v0 $(echo "${#options[@]}" '-' ${prev_selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-            __AF_go_up335_v0__68_13="$__AF_go_up335_v0";
-            echo "$__AF_go_up335_v0__68_13" > /dev/null 2>&1
+            __AF_go_up335_v0__73_13="$__AF_go_up335_v0";
+            echo "$__AF_go_up335_v0__73_13" > /dev/null 2>&1
             __AMBER_ARRAY_36=("");
             eprintf__328_v0 "\e[K" __AMBER_ARRAY_36[@];
-            __AF_eprintf328_v0__69_13="$__AF_eprintf328_v0";
-            echo "$__AF_eprintf328_v0__69_13" > /dev/null 2>&1
+            __AF_eprintf328_v0__74_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__74_13" > /dev/null 2>&1
             __AMBER_LEN="${cursor}";
             print_blank__333_v0 "${#__AMBER_LEN}";
-            __AF_print_blank333_v0__70_13="$__AF_print_blank333_v0";
-            echo "$__AF_print_blank333_v0__70_13" > /dev/null 2>&1
+            __AF_print_blank333_v0__75_13="$__AF_print_blank333_v0";
+            echo "$__AF_print_blank333_v0__75_13" > /dev/null 2>&1
             __AMBER_ARRAY_37=("");
             eprintf__328_v0 "${options[${prev_selected}]}" __AMBER_ARRAY_37[@];
-            __AF_eprintf328_v0__71_13="$__AF_eprintf328_v0";
-            echo "$__AF_eprintf328_v0__71_13" > /dev/null 2>&1
-            local diff=$(echo ${selected} '-' ${prev_selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
-            go_up_or_down__336_v0 ${diff};
-            __AF_go_up_or_down336_v0__74_13="$__AF_go_up_or_down336_v0";
-            echo "$__AF_go_up_or_down336_v0__74_13" > /dev/null 2>&1
-            __AMBER_ARRAY_38=("");
-            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_38[@];
-            __AF_eprintf328_v0__75_13="$__AF_eprintf328_v0";
-            echo "$__AF_eprintf328_v0__75_13" > /dev/null 2>&1
-            __AMBER_ARRAY_39=("");
-            eprintf__328_v0 "\e[K" __AMBER_ARRAY_39[@];
             __AF_eprintf328_v0__76_13="$__AF_eprintf328_v0";
             echo "$__AF_eprintf328_v0__76_13" > /dev/null 2>&1
-            eprintf_colored__329_v0 "${cursor}""${options[${selected}]}" 32;
-            __AF_eprintf_colored329_v0__77_13="$__AF_eprintf_colored329_v0";
-            echo "$__AF_eprintf_colored329_v0__77_13" > /dev/null 2>&1
-            go_down__334_v0 $(echo "${#options[@]}" '-' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-            __AF_go_down334_v0__79_13="$__AF_go_down334_v0";
-            echo "$__AF_go_down334_v0__79_13" > /dev/null 2>&1
-            __AMBER_ARRAY_40=("");
-            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_40[@];
+            local diff=$(echo ${selected} '-' ${prev_selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+            go_up_or_down__336_v0 ${diff};
+            __AF_go_up_or_down336_v0__79_13="$__AF_go_up_or_down336_v0";
+            echo "$__AF_go_up_or_down336_v0__79_13" > /dev/null 2>&1
+            __AMBER_ARRAY_38=("");
+            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_38[@];
             __AF_eprintf328_v0__80_13="$__AF_eprintf328_v0";
             echo "$__AF_eprintf328_v0__80_13" > /dev/null 2>&1
+            __AMBER_ARRAY_39=("");
+            eprintf__328_v0 "\e[K" __AMBER_ARRAY_39[@];
+            __AF_eprintf328_v0__81_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__81_13" > /dev/null 2>&1
+            eprintf_colored__329_v0 "${cursor}""${options[${selected}]}" 32;
+            __AF_eprintf_colored329_v0__82_13="$__AF_eprintf_colored329_v0";
+            echo "$__AF_eprintf_colored329_v0__82_13" > /dev/null 2>&1
+            go_down__334_v0 $(echo "${#options[@]}" '-' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+            __AF_go_down334_v0__84_13="$__AF_go_down334_v0";
+            echo "$__AF_go_down334_v0__84_13" > /dev/null 2>&1
+            __AMBER_ARRAY_40=("");
+            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_40[@];
+            __AF_eprintf328_v0__85_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__85_13" > /dev/null 2>&1
 fi
 done
     if [ $([ "_${header}" == "_" ]; echo $?) != 0 ]; then
         go_down__334_v0 6;
-        __AF_go_down334_v0__85_9="$__AF_go_down334_v0";
-        echo "$__AF_go_down334_v0__85_9" > /dev/null 2>&1
+        __AF_go_down334_v0__90_9="$__AF_go_down334_v0";
+        echo "$__AF_go_down334_v0__90_9" > /dev/null 2>&1
         remove_line__332_v0 $(echo "${#options[@]}" '+' 7 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-        __AF_remove_line332_v0__86_9="$__AF_remove_line332_v0";
-        echo "$__AF_remove_line332_v0__86_9" > /dev/null 2>&1
+        __AF_remove_line332_v0__91_9="$__AF_remove_line332_v0";
+        echo "$__AF_remove_line332_v0__91_9" > /dev/null 2>&1
 else
         go_down__334_v0 6;
-        __AF_go_down334_v0__88_9="$__AF_go_down334_v0";
-        echo "$__AF_go_down334_v0__88_9" > /dev/null 2>&1
+        __AF_go_down334_v0__93_9="$__AF_go_down334_v0";
+        echo "$__AF_go_down334_v0__93_9" > /dev/null 2>&1
         remove_line__332_v0 $(echo "${#options[@]}" '+' 6 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-        __AF_remove_line332_v0__89_9="$__AF_remove_line332_v0";
-        echo "$__AF_remove_line332_v0__89_9" > /dev/null 2>&1
+        __AF_remove_line332_v0__94_9="$__AF_remove_line332_v0";
+        echo "$__AF_remove_line332_v0__94_9" > /dev/null 2>&1
 fi
      stty echo < /dev/tty ;
     __AS=$?
     __AF_xyl_choose349_v0="${options[${selected}]}";
     return 0
 }
-print_choose_help__388_v0() {
+count_checked__350_v0() {
+    local checked=("${!1}")
+    local count=0
+    for c in "${checked[@]}"; do
+        if [ ${c} != 0 ]; then
+            count=$(echo ${count} '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+fi
+done
+    __AF_count_checked350_v0=${count};
+    return 0
+}
+xyl_multi_choose__351_v0() {
+    local options=("${!1}")
+    local cursor=$2
+    local header=$3
+    local limit=$4
+    local vim_mode=$5
+     stty -echo < /dev/tty ;
+    __AS=$?
+    if [ $(echo "${#options[@]}" '==' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+        eprintf_colored__329_v0 "No options provided.
+" 31;
+        __AF_eprintf_colored329_v0__121_9="$__AF_eprintf_colored329_v0";
+        echo "$__AF_eprintf_colored329_v0__121_9" > /dev/null 2>&1
+         stty echo < /dev/tty ;
+        __AS=$?
+        __AMBER_ARRAY_41=();
+        __AF_xyl_multi_choose351_v0=("${__AMBER_ARRAY_41[@]}");
+        return 0
+fi
+    if [ $([ "_${header}" == "_" ]; echo $?) != 0 ]; then
+        __AMBER_ARRAY_42=("");
+        eprintf__328_v0 "${header}""
+" __AMBER_ARRAY_42[@];
+        __AF_eprintf328_v0__127_9="$__AF_eprintf328_v0";
+        echo "$__AF_eprintf328_v0__127_9" > /dev/null 2>&1
+fi
+    go_down__334_v0 $(echo "${#options[@]}" '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+    __AF_go_down334_v0__130_5="$__AF_go_down334_v0";
+    echo "$__AF_go_down334_v0__130_5" > /dev/null 2>&1
+    if [ ${vim_mode} != 0 ]; then
+        eprintf_colored__329_v0 "↑↓/jk" 0;
+        __AF_eprintf_colored329_v0__132_9="$__AF_eprintf_colored329_v0";
+        echo "$__AF_eprintf_colored329_v0__132_9" > /dev/null 2>&1
+else
+        eprintf_colored__329_v0 "↑↓" 0;
+        __AF_eprintf_colored329_v0__134_9="$__AF_eprintf_colored329_v0";
+        echo "$__AF_eprintf_colored329_v0__134_9" > /dev/null 2>&1
+fi
+    eprintf_colored__329_v0 " select" 2;
+    __AF_eprintf_colored329_v0__136_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__136_5" > /dev/null 2>&1
+    eprintf_colored__329_v0 " • " 90;
+    __AF_eprintf_colored329_v0__137_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__137_5" > /dev/null 2>&1
+    eprintf_colored__329_v0 "x" 0;
+    __AF_eprintf_colored329_v0__138_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__138_5" > /dev/null 2>&1
+    eprintf_colored__329_v0 " toggle" 2;
+    __AF_eprintf_colored329_v0__139_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__139_5" > /dev/null 2>&1
+    eprintf_colored__329_v0 " • " 90;
+    __AF_eprintf_colored329_v0__140_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__140_5" > /dev/null 2>&1
+    eprintf_colored__329_v0 "enter" 0;
+    __AF_eprintf_colored329_v0__141_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__141_5" > /dev/null 2>&1
+    eprintf_colored__329_v0 " confirm" 2;
+    __AF_eprintf_colored329_v0__142_5="$__AF_eprintf_colored329_v0";
+    echo "$__AF_eprintf_colored329_v0__142_5" > /dev/null 2>&1
+    go_up__335_v0 $(echo "${#options[@]}" '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+    __AF_go_up335_v0__143_5="$__AF_go_up335_v0";
+    echo "$__AF_go_up335_v0__143_5" > /dev/null 2>&1
+    __AMBER_ARRAY_43=("");
+    eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_43[@];
+    __AF_eprintf328_v0__144_5="$__AF_eprintf328_v0";
+    echo "$__AF_eprintf328_v0__144_5" > /dev/null 2>&1
+    local selected=0
+    __AMBER_ARRAY_44=();
+    local checked=("${__AMBER_ARRAY_44[@]}")
+    for _ in $(seq 0 $(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')); do
+        __AMBER_ARRAY_45=(0);
+        checked+=("${__AMBER_ARRAY_45[@]}")
+done
+    for i in $(seq 0 $(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')); do
+        if [ $(echo ${i} '==' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+            eprintf_colored__329_v0 "${cursor}""• ""${options[${i}]}""
+" 32;
+            __AF_eprintf_colored329_v0__154_13="$__AF_eprintf_colored329_v0";
+            echo "$__AF_eprintf_colored329_v0__154_13" > /dev/null 2>&1
+else
+            __AMBER_LEN="${cursor}";
+            print_blank__333_v0 "${#__AMBER_LEN}";
+            __AF_print_blank333_v0__156_13="$__AF_print_blank333_v0";
+            echo "$__AF_print_blank333_v0__156_13" > /dev/null 2>&1
+            __AMBER_ARRAY_46=("");
+            eprintf__328_v0 "• ""${options[${i}]}""
+" __AMBER_ARRAY_46[@];
+            __AF_eprintf328_v0__157_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__157_13" > /dev/null 2>&1
+fi
+done
+    while :
+do
+        get_key__326_v0 ;
+        __AF_get_key326_v0__162_19="${__AF_get_key326_v0}";
+        local key="${__AF_get_key326_v0__162_19}"
+        local prev_selected=${selected}
+        if [ $(echo $([ "_${key}" != "_UP" ]; echo $?) '||' $(echo ${vim_mode} '&&' $([ "_${key}" != "_k" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+            if [ $(echo ${selected} '==' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+                selected=$(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+else
+                selected=$(echo ${selected} '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+fi
+elif [ $(echo $([ "_${key}" != "_DOWN" ]; echo $?) '||' $(echo ${vim_mode} '&&' $([ "_${key}" != "_j" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+            if [ $(echo ${selected} '==' $(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+                selected=0
+else
+                selected=$(echo ${selected} '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+fi
+elif [ $(echo $([ "_${key}" != "_x" ]; echo $?) '||' $([ "_${key}" != "_X" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+            count_checked__350_v0 checked[@];
+            __AF_count_checked350_v0__186_34="$__AF_count_checked350_v0";
+            if [ "${checked[${selected}]}" != 0 ]; then
+                checked[${selected}]=0
+elif [ $(echo $(echo ${limit} '<' 0 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '||' $(echo "$__AF_count_checked350_v0__186_34" '<' ${limit} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+                checked[${selected}]=1
+else
+                continue
+fi
+            go_up__335_v0 $(echo "${#options[@]}" '-' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+            __AF_go_up335_v0__191_17="$__AF_go_up335_v0";
+            echo "$__AF_go_up335_v0__191_17" > /dev/null 2>&1
+            __AMBER_ARRAY_47=("");
+            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_47[@];
+            __AF_eprintf328_v0__192_17="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__192_17" > /dev/null 2>&1
+            __AMBER_ARRAY_48=("");
+            eprintf__328_v0 "\e[K" __AMBER_ARRAY_48[@];
+            __AF_eprintf328_v0__193_17="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__193_17" > /dev/null 2>&1
+            local check_mark=$(if [ "${checked[${selected}]}" != 0 ]; then echo "✓ "; else echo "• "; fi)
+            eprintf_colored__329_v0 "${cursor}""${check_mark}""${options[${selected}]}" 32;
+            __AF_eprintf_colored329_v0__195_17="$__AF_eprintf_colored329_v0";
+            echo "$__AF_eprintf_colored329_v0__195_17" > /dev/null 2>&1
+            go_down__334_v0 $(echo "${#options[@]}" '-' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+            __AF_go_down334_v0__196_17="$__AF_go_down334_v0";
+            echo "$__AF_go_down334_v0__196_17" > /dev/null 2>&1
+            __AMBER_ARRAY_49=("");
+            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_49[@];
+            __AF_eprintf328_v0__197_17="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__197_17" > /dev/null 2>&1
+            continue
+elif [ $([ "_${key}" != "_INPUT" ]; echo $?) != 0 ]; then
+            break
+else
+            continue
+fi
+        if [ $(echo ${prev_selected} '!=' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+            go_up__335_v0 $(echo "${#options[@]}" '-' ${prev_selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+            __AF_go_up335_v0__207_13="$__AF_go_up335_v0";
+            echo "$__AF_go_up335_v0__207_13" > /dev/null 2>&1
+            __AMBER_ARRAY_50=("");
+            eprintf__328_v0 "\e[K" __AMBER_ARRAY_50[@];
+            __AF_eprintf328_v0__208_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__208_13" > /dev/null 2>&1
+            __AMBER_LEN="${cursor}";
+            print_blank__333_v0 "${#__AMBER_LEN}";
+            __AF_print_blank333_v0__209_13="$__AF_print_blank333_v0";
+            echo "$__AF_print_blank333_v0__209_13" > /dev/null 2>&1
+            local prev_check_mark=$(if [ "${checked[${prev_selected}]}" != 0 ]; then echo "✓ "; else echo "• "; fi)
+            __AMBER_ARRAY_51=("");
+            eprintf__328_v0 "${prev_check_mark}""${options[${prev_selected}]}" __AMBER_ARRAY_51[@];
+            __AF_eprintf328_v0__211_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__211_13" > /dev/null 2>&1
+            local diff=$(echo ${selected} '-' ${prev_selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+            go_up_or_down__336_v0 ${diff};
+            __AF_go_up_or_down336_v0__214_13="$__AF_go_up_or_down336_v0";
+            echo "$__AF_go_up_or_down336_v0__214_13" > /dev/null 2>&1
+            __AMBER_ARRAY_52=("");
+            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_52[@];
+            __AF_eprintf328_v0__215_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__215_13" > /dev/null 2>&1
+            __AMBER_ARRAY_53=("");
+            eprintf__328_v0 "\e[K" __AMBER_ARRAY_53[@];
+            __AF_eprintf328_v0__216_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__216_13" > /dev/null 2>&1
+            local check_mark=$(if [ "${checked[${selected}]}" != 0 ]; then echo "✓ "; else echo "• "; fi)
+            eprintf_colored__329_v0 "${cursor}""${check_mark}""${options[${selected}]}" 32;
+            __AF_eprintf_colored329_v0__218_13="$__AF_eprintf_colored329_v0";
+            echo "$__AF_eprintf_colored329_v0__218_13" > /dev/null 2>&1
+            go_down__334_v0 $(echo "${#options[@]}" '-' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+            __AF_go_down334_v0__220_13="$__AF_go_down334_v0";
+            echo "$__AF_go_down334_v0__220_13" > /dev/null 2>&1
+            __AMBER_ARRAY_54=("");
+            eprintf__328_v0 "\e[9999D" __AMBER_ARRAY_54[@];
+            __AF_eprintf328_v0__221_13="$__AF_eprintf328_v0";
+            echo "$__AF_eprintf328_v0__221_13" > /dev/null 2>&1
+fi
+done
+    if [ $([ "_${header}" == "_" ]; echo $?) != 0 ]; then
+        go_down__334_v0 6;
+        __AF_go_down334_v0__226_9="$__AF_go_down334_v0";
+        echo "$__AF_go_down334_v0__226_9" > /dev/null 2>&1
+        remove_line__332_v0 $(echo "${#options[@]}" '+' 7 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+        __AF_remove_line332_v0__227_9="$__AF_remove_line332_v0";
+        echo "$__AF_remove_line332_v0__227_9" > /dev/null 2>&1
+else
+        go_down__334_v0 6;
+        __AF_go_down334_v0__229_9="$__AF_go_down334_v0";
+        echo "$__AF_go_down334_v0__229_9" > /dev/null 2>&1
+        remove_line__332_v0 $(echo "${#options[@]}" '+' 6 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+        __AF_remove_line332_v0__230_9="$__AF_remove_line332_v0";
+        echo "$__AF_remove_line332_v0__230_9" > /dev/null 2>&1
+fi
+     stty echo < /dev/tty ;
+    __AS=$?
+    __AMBER_ARRAY_55=();
+    local result=("${__AMBER_ARRAY_55[@]}")
+    for i in $(seq 0 $(echo "${#options[@]}" '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')); do
+        if [ "${checked[${i}]}" != 0 ]; then
+            __AMBER_ARRAY_56=("${options[${i}]}");
+            result+=("${__AMBER_ARRAY_56[@]}")
+fi
+done
+    __AF_xyl_multi_choose351_v0=("${result[@]}");
+    return 0
+}
+print_choose_help__391_v0() {
     echo "Usage: ./xylitol.sh choose [<options> ...] [flags]"
     echo ""
     printf_colored__327_v0 "choose" 92;
     __AF_printf_colored327_v0__7_5="$__AF_printf_colored327_v0";
     echo "$__AF_printf_colored327_v0__7_5" > /dev/null 2>&1
-    __AMBER_ARRAY_41=("");
-    printf__99_v0 " - Choose from a list of options." __AMBER_ARRAY_41[@];
+    __AMBER_ARRAY_57=("");
+    printf__99_v0 " - Choose from a list of options." __AMBER_ARRAY_57[@];
     __AF_printf99_v0__8_5="$__AF_printf99_v0";
     echo "$__AF_printf99_v0__8_5" > /dev/null 2>&1
     echo ""
@@ -658,106 +904,148 @@ print_choose_help__388_v0() {
     __AF_echo_colored105_v0__14_5="$__AF_echo_colored105_v0";
     echo "$__AF_echo_colored105_v0__14_5" > /dev/null 2>&1
     echo "  -h, --help             Show this help message"
+    echo "  --limit=<number>       Enable multi-selection mode with a limit of selections"
+    echo "  --no-limit             Enable multi-selection mode with no limit"
     echo "  --cursor=\"<text>\"      Set the cursor text (default: '> ')"
     echo "  --header=\"<text>\"      Set a header text to display above the options (ANSI escape supported)"
+    echo "  --vim                  Enable vim-style navigation (j/k keys)"
     echo ""
 }
-read_stdin_options__430_v0() {
-    __AMBER_ARRAY_42=();
-    local options=("${__AMBER_ARRAY_42[@]}")
-    __AMBER_VAL_43=$( [ -t 0 ] && echo "true" || echo "false" );
+read_stdin_options__433_v0() {
+    __AMBER_ARRAY_58=();
+    local options=("${__AMBER_ARRAY_58[@]}")
+    __AMBER_VAL_59=$( [ -t 0 ] && echo "true" || echo "false" );
     __AS=$?;
-    local is_tty="${__AMBER_VAL_43}"
+    local is_tty="${__AMBER_VAL_59}"
     if [ $([ "_${is_tty}" != "_false" ]; echo $?) != 0 ]; then
          while IFS= read -r line || [[ -n "$line" ]]; do options+=("$line"); done ;
         __AS=$?
 fi
-    __AF_read_stdin_options430_v0=("${options[@]}");
+    __AF_read_stdin_options433_v0=("${options[@]}");
     return 0
 }
-execute_choose__431_v0() {
+execute_choose__434_v0() {
     local parameters=("${!1}")
     local cursor="> "
     colored__330_v0 "Choose:" 34;
     __AF_colored330_v0__17_18="${__AF_colored330_v0}";
     local header="${__AF_colored330_v0__17_18}"
-    read_stdin_options__430_v0 ;
-    __AF_read_stdin_options430_v0__18_19=("${__AF_read_stdin_options430_v0[@]}");
-    local options=("${__AF_read_stdin_options430_v0__18_19[@]}")
+    read_stdin_options__433_v0 ;
+    __AF_read_stdin_options433_v0__18_19=("${__AF_read_stdin_options433_v0[@]}");
+    local options=("${__AF_read_stdin_options433_v0__18_19[@]}")
+    local multi=0
+    local limit=$(echo  '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+    local vim_mode=0
     for param in "${parameters[@]:2:9997}"; do
         match_regex__17_v0 "${param}" "^-h\$" 0;
-        __AF_match_regex17_v0__22_13="$__AF_match_regex17_v0";
+        __AF_match_regex17_v0__25_13="$__AF_match_regex17_v0";
         match_regex__17_v0 "${param}" "^--help\$" 0;
-        __AF_match_regex17_v0__22_43="$__AF_match_regex17_v0";
+        __AF_match_regex17_v0__25_43="$__AF_match_regex17_v0";
         match_regex__17_v0 "${param}" "^--cursor=.*\$" 0;
-        __AF_match_regex17_v0__26_13="$__AF_match_regex17_v0";
+        __AF_match_regex17_v0__29_13="$__AF_match_regex17_v0";
         match_regex__17_v0 "${param}" "^--header=.*\$" 0;
-        __AF_match_regex17_v0__30_13="$__AF_match_regex17_v0";
-        if [ $(echo "$__AF_match_regex17_v0__22_13" '||' "$__AF_match_regex17_v0__22_43" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
-            print_choose_help__388_v0 ;
-            __AF_print_choose_help388_v0__23_17="$__AF_print_choose_help388_v0";
-            echo "$__AF_print_choose_help388_v0__23_17" > /dev/null 2>&1
+        __AF_match_regex17_v0__33_13="$__AF_match_regex17_v0";
+        match_regex__17_v0 "${param}" "^--limit=.*\$" 0;
+        __AF_match_regex17_v0__37_13="$__AF_match_regex17_v0";
+        match_regex__17_v0 "${param}" "^--no-limit\$" 0;
+        __AF_match_regex17_v0__45_13="$__AF_match_regex17_v0";
+        match_regex__17_v0 "${param}" "^--vim\$" 0;
+        __AF_match_regex17_v0__48_13="$__AF_match_regex17_v0";
+        if [ $(echo "$__AF_match_regex17_v0__25_13" '||' "$__AF_match_regex17_v0__25_43" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+            print_choose_help__391_v0 ;
+            __AF_print_choose_help391_v0__26_17="$__AF_print_choose_help391_v0";
+            echo "$__AF_print_choose_help391_v0__26_17" > /dev/null 2>&1
             exit 0
-elif [ "$__AF_match_regex17_v0__26_13" != 0 ]; then
+elif [ "$__AF_match_regex17_v0__29_13" != 0 ]; then
             split__3_v0 "${param}" "=";
-            __AF_split3_v0__27_30=("${__AF_split3_v0[@]}");
-            local result=("${__AF_split3_v0__27_30[@]}")
+            __AF_split3_v0__30_30=("${__AF_split3_v0[@]}");
+            local result=("${__AF_split3_v0__30_30[@]}")
             cursor="${result[1]}"
-elif [ "$__AF_match_regex17_v0__30_13" != 0 ]; then
+elif [ "$__AF_match_regex17_v0__33_13" != 0 ]; then
             split__3_v0 "${param}" "=";
-            __AF_split3_v0__31_30=("${__AF_split3_v0[@]}");
-            local result=("${__AF_split3_v0__31_30[@]}")
+            __AF_split3_v0__34_30=("${__AF_split3_v0[@]}");
+            local result=("${__AF_split3_v0__34_30[@]}")
             header="${result[1]}"
+elif [ "$__AF_match_regex17_v0__37_13" != 0 ]; then
+            split__3_v0 "${param}" "=";
+            __AF_split3_v0__38_30=("${__AF_split3_v0[@]}");
+            local result=("${__AF_split3_v0__38_30[@]}")
+            parse_number__12_v0 "${result[1]}";
+            __AS=$?;
+if [ $__AS != 0 ]; then
+                eprintf_colored__329_v0 "Invalid limit value: ""${result[1]}""
+" 31;
+                __AF_eprintf_colored329_v0__40_21="$__AF_eprintf_colored329_v0";
+                echo "$__AF_eprintf_colored329_v0__40_21" > /dev/null 2>&1
+                exit 1
+fi;
+            __AF_parse_number12_v0__39_25="$__AF_parse_number12_v0";
+            limit="$__AF_parse_number12_v0__39_25"
+            multi=1
+elif [ "$__AF_match_regex17_v0__45_13" != 0 ]; then
+            multi=1
+elif [ "$__AF_match_regex17_v0__48_13" != 0 ]; then
+            vim_mode=1
 else
-            __AMBER_ARRAY_44=("${param}");
-            options+=("${__AMBER_ARRAY_44[@]}")
+            __AMBER_ARRAY_60=("${param}");
+            options+=("${__AMBER_ARRAY_60[@]}")
 fi
 done
-    xyl_choose__349_v0 options[@] "${cursor}" "${header}";
-    __AF_xyl_choose349_v0__40_12="${__AF_xyl_choose349_v0}";
-    __AF_execute_choose431_v0="${__AF_xyl_choose349_v0__40_12}";
+    if [ ${multi} != 0 ]; then
+        xyl_multi_choose__351_v0 options[@] "${cursor}" "${header}" ${limit} ${vim_mode};
+        __AF_xyl_multi_choose351_v0__58_23=("${__AF_xyl_multi_choose351_v0[@]}");
+        local results=("${__AF_xyl_multi_choose351_v0__58_23[@]}")
+        join__6_v0 results[@] "
+";
+        __AF_join6_v0__59_16="${__AF_join6_v0}";
+        __AF_execute_choose434_v0="${__AF_join6_v0__59_16}";
+        return 0
+fi
+    xyl_choose__349_v0 options[@] "${cursor}" "${header}" ${vim_mode};
+    __AF_xyl_choose349_v0__62_12="${__AF_xyl_choose349_v0}";
+    __AF_execute_choose434_v0="${__AF_xyl_choose349_v0__62_12}";
     return 0
 }
 # #!/usr/bin/env amber
 __0_VERSION="0.1.0"
 __1_AMBER_VERSION="0.4.0"
-check_prerequirements__433_v0() {
+check_prerequirements__436_v0() {
      echo "0" | bc -l > /dev/null ;
     __AS=$?;
 if [ $__AS != 0 ]; then
         eprintf_colored__116_v0 "Error: " 91;
         __AF_eprintf_colored116_v0__13_9="$__AF_eprintf_colored116_v0";
         echo "$__AF_eprintf_colored116_v0__13_9" > /dev/null 2>&1
-        __AMBER_ARRAY_45=("");
+        __AMBER_ARRAY_61=("");
         eprintf__115_v0 "bc is not installed. Please install bc to use xylitol.
-" __AMBER_ARRAY_45[@];
+" __AMBER_ARRAY_61[@];
         __AF_eprintf115_v0__14_9="$__AF_eprintf115_v0";
         echo "$__AF_eprintf115_v0__14_9" > /dev/null 2>&1
-        __AMBER_ARRAY_46=("");
+        __AMBER_ARRAY_62=("");
         eprintf__115_v0 "  For Debian/Ubuntu: sudo apt install bc
-" __AMBER_ARRAY_46[@];
+" __AMBER_ARRAY_62[@];
         __AF_eprintf115_v0__15_9="$__AF_eprintf115_v0";
         echo "$__AF_eprintf115_v0__15_9" > /dev/null 2>&1
-        __AMBER_ARRAY_47=("");
+        __AMBER_ARRAY_63=("");
         eprintf__115_v0 "  For Fedora: sudo dnf install bc
-" __AMBER_ARRAY_47[@];
+" __AMBER_ARRAY_63[@];
         __AF_eprintf115_v0__16_9="$__AF_eprintf115_v0";
         echo "$__AF_eprintf115_v0__16_9" > /dev/null 2>&1
-        __AMBER_ARRAY_48=("");
+        __AMBER_ARRAY_64=("");
         eprintf__115_v0 "  For Arch Linux: sudo pacman -S bc
-" __AMBER_ARRAY_48[@];
+" __AMBER_ARRAY_64[@];
         __AF_eprintf115_v0__17_9="$__AF_eprintf115_v0";
         echo "$__AF_eprintf115_v0__17_9" > /dev/null 2>&1
-        __AF_check_prerequirements433_v0=0;
+        __AF_check_prerequirements436_v0=0;
         return 0
 fi
-    __AF_check_prerequirements433_v0=1;
+    __AF_check_prerequirements436_v0=1;
     return 0
 }
 declare -r arguments=("$0" "$@")
-    check_prerequirements__433_v0 ;
-    __AF_check_prerequirements433_v0__24_12="$__AF_check_prerequirements433_v0";
-    if [ $(echo  '!' "$__AF_check_prerequirements433_v0__24_12" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
+    check_prerequirements__436_v0 ;
+    __AF_check_prerequirements436_v0__24_12="$__AF_check_prerequirements436_v0";
+    if [ $(echo  '!' "$__AF_check_prerequirements436_v0__24_12" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
         exit 1
 fi
     if [ $([ "_${arguments[1]}" != "_input" ]; echo $?) != 0 ]; then
@@ -765,16 +1053,16 @@ fi
             __AF_execute_input296_v0__27_18="${__AF_execute_input296_v0}";
             echo "${__AF_execute_input296_v0__27_18}"
 elif [ $([ "_${arguments[1]}" != "_choose" ]; echo $?) != 0 ]; then
-                    execute_choose__431_v0 arguments[@];
-            __AF_execute_choose431_v0__30_18="${__AF_execute_choose431_v0}";
-            echo "${__AF_execute_choose431_v0__30_18}"
+                    execute_choose__434_v0 arguments[@];
+            __AF_execute_choose434_v0__30_18="${__AF_execute_choose434_v0}";
+            echo "${__AF_execute_choose434_v0__30_18}"
 elif [ $(echo $(echo $([ "_${arguments[1]}" != "_help" ]; echo $?) '||' $([ "_${arguments[1]}" != "_--help" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '||' $([ "_${arguments[1]}" != "_-h" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
                     print_help__174_v0 ;
             __AF_print_help174_v0__33_13="$__AF_print_help174_v0";
             echo "$__AF_print_help174_v0__33_13" > /dev/null 2>&1
 elif [ $(echo $(echo $([ "_${arguments[1]}" != "_version" ]; echo $?) '||' $([ "_${arguments[1]}" != "_--version" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '||' $([ "_${arguments[1]}" != "_-v" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
-                    __AMBER_ARRAY_49=("");
-            printf__99_v0 "xylitol.sh version: " __AMBER_ARRAY_49[@];
+                    __AMBER_ARRAY_65=("");
+            printf__99_v0 "xylitol.sh version: " __AMBER_ARRAY_65[@];
             __AF_printf99_v0__37_13="$__AF_printf99_v0";
             echo "$__AF_printf99_v0__37_13" > /dev/null 2>&1
             printf_colored__114_v0 "${__0_VERSION}" 93;

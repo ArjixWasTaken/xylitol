@@ -44,19 +44,25 @@ pub fun xyl_choose(
         let prev_selected = selected
 
         if {
-            key == "UP" {
+            key == "UP" or key == "k" {
                 if selected == 0 {
                     selected = len(options) - 1
                 } else {
                     selected = selected - 1
                 }
             }
-            key == "DOWN" {
+            key == "DOWN" or key == "j" {
                 if selected == len(options) - 1 {
                     selected = 0
                 } else {
                     selected = selected + 1
                 }
+            }
+            key == "h" {
+                selected = 0
+            }
+            key == "l" {
+                selected = len(options) - 1
             }
             key == "INPUT" {
                 break
@@ -91,4 +97,148 @@ pub fun xyl_choose(
 
     trust $ stty echo < /dev/tty $
     return options[selected]
+}
+
+fun count_checked(checked: [Bool]): Num {
+    let count = 0
+    for c in checked {
+        if c {
+            count += 1
+        }
+    }
+    return count
+}
+
+pub fun xyl_multi_choose(
+    options: [Text],
+    cursor: Text = "> ",
+    header: Text = "\e[96mChoose:\e[0m",
+    limit: Num = -1,
+): [Text] {
+    trust $ stty -echo < /dev/tty $
+
+    if len(options) == 0 {
+        eprintf_colored("No options provided.\n", 31)
+        trust $ stty echo < /dev/tty $
+        return [Text]
+    }
+
+    if header != "" {
+        eprintf(header + "\n")
+    }
+
+    go_down(len(options) + 1)
+    eprintf_colored("↑↓", 0)
+    eprintf_colored(" select", 2)
+    eprintf_colored(" • ", 90)
+    eprintf_colored("x", 0)
+    eprintf_colored(" toggle", 2)
+    eprintf_colored(" • ", 90)
+    eprintf_colored("enter", 0)
+    eprintf_colored(" confirm", 2)
+    go_up(len(options) + 1)
+    eprintf("\e[9999D")
+
+    let selected = 0
+    let checked = [Bool]
+    for _ in 0..len(options) {
+        checked += [false]
+    }
+
+    for i in 0..len(options) {
+        if i == selected {
+            eprintf_colored(cursor + "• " + options[i] + "\n", 32)
+        } else {
+            print_blank(len(cursor))
+            eprintf("• " + options[i] + "\n")
+        }
+    }
+
+    loop {
+        let key = get_key()
+
+        let prev_selected = selected
+
+        if {
+            key == "UP" or key == "k" {
+                if selected == 0 {
+                    selected = len(options) - 1
+                } else {
+                    selected = selected - 1
+                }
+            }
+            key == "DOWN" or key == "j" {
+                if selected == len(options) - 1 {
+                    selected = 0
+                } else {
+                    selected = selected + 1
+                }
+            }
+            key == "h" {
+                selected = 0
+            }
+            key == "l" {
+                selected = len(options) - 1
+            }
+            key == "x" or key == "X" {
+                if {
+                    checked[selected] {
+                        checked[selected] = false
+                    }
+                    limit < 0 or count_checked(checked) < limit {
+                        checked[selected] = true
+                    }
+                    else: continue
+                }
+                go_up(len(options) - selected)
+                eprintf("\e[9999D")
+                eprintf("\e[K")
+                let check_mark = checked[selected] then "✓ " else "• "
+                eprintf_colored(cursor + check_mark + options[selected], 32)
+                go_down(len(options) - selected)
+                eprintf("\e[9999D")
+                continue
+            }
+            key == "INPUT" {
+                break
+            }
+            else: continue
+        }
+
+        if prev_selected != selected {
+            go_up(len(options) - prev_selected)
+            eprintf("\e[K")
+            print_blank(len(cursor))
+            let prev_check_mark = checked[prev_selected] then "✓ " else "• "
+            eprintf(prev_check_mark + options[prev_selected])
+
+            let diff = selected - prev_selected
+            go_up_or_down(diff)
+            eprintf("\e[9999D")
+            eprintf("\e[K")
+            let check_mark = checked[selected] then "✓ " else "• "
+            eprintf_colored(cursor + check_mark + options[selected], 32)
+
+            go_down(len(options) - selected)
+            eprintf("\e[9999D")
+        }
+    }
+
+    if header != "" {
+        go_down(6)
+        remove_line(len(options) + 7)
+    } else {
+        go_down(6)
+        remove_line(len(options) + 6)
+    }
+
+    trust $ stty echo < /dev/tty $
+
+    let result = [Text]
+    for i in 0..len(options) {
+        if checked[i] {
+            result += [options[i]]
+        }
+    }
+    return result
 }
