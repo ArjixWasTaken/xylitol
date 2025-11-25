@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Written in [Amber](https://amber-lang.com/)
 # version: 0.4.0-alpha
-# date: 2025-11-26 03:06:35
+# date: 2025-11-26 03:50:36
 replace__0_v0() {
     local source=$1
     local search=$2
@@ -471,22 +471,28 @@ fi
     if [ $(echo ${input_lines} '<' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
         input_lines=1
 fi
-    local header_line=0
-    if [ $([ "_${header}" == "_" ]; echo $?) != 0 ]; then
-        header_line=1
-fi
     if [ $(echo ${input_lines} '<' 3 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
         go_down__300_v0 $(echo 3 '-' ${input_lines} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-        __AF_go_down300_v0__61_9="$__AF_go_down300_v0";
-        echo "$__AF_go_down300_v0__61_9" > /dev/null 2>&1
-        remove_line__296_v0 $(echo ${header_line} '+' 4 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-        __AF_remove_line296_v0__62_9="$__AF_remove_line296_v0";
-        echo "$__AF_remove_line296_v0__62_9" > /dev/null 2>&1
+        __AF_go_down300_v0__56_9="$__AF_go_down300_v0";
+        echo "$__AF_go_down300_v0__56_9" > /dev/null 2>&1
+        if [ $([ "_${header}" == "_" ]; echo $?) != 0 ]; then
+            remove_line__296_v0 1;
+            __AF_remove_line296_v0__58_13="$__AF_remove_line296_v0";
+            echo "$__AF_remove_line296_v0__58_13" > /dev/null 2>&1
+fi
+        remove_line__296_v0 3;
+        __AF_remove_line296_v0__60_9="$__AF_remove_line296_v0";
+        echo "$__AF_remove_line296_v0__60_9" > /dev/null 2>&1
 fi
     if [ $(echo ${input_lines} '>=' 3 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
-        remove_line__296_v0 $(echo $(echo ${input_lines} '+' ${header_line} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-        __AF_remove_line296_v0__65_9="$__AF_remove_line296_v0";
-        echo "$__AF_remove_line296_v0__65_9" > /dev/null 2>&1
+        if [ $([ "_${header}" == "_" ]; echo $?) != 0 ]; then
+            remove_line__296_v0 1;
+            __AF_remove_line296_v0__64_13="$__AF_remove_line296_v0";
+            echo "$__AF_remove_line296_v0__64_13" > /dev/null 2>&1
+fi
+        remove_line__296_v0 $(echo ${input_lines} '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
+        __AF_remove_line296_v0__66_9="$__AF_remove_line296_v0";
+        echo "$__AF_remove_line296_v0__66_9" > /dev/null 2>&1
 fi
     __AF_xyl_input328_v0="${text}";
     return 0

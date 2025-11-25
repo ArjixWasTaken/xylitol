@@ -52,17 +52,18 @@ pub fun xyl_input(
         input_lines = 1
     }
 
-    let header_line = 0
-    if header != "" {
-        header_line = 1
-    }
-
     if input_lines < 3 {
         go_down(3 - input_lines)
-        remove_line(header_line + 4)
+        if header != "" {
+            remove_line(1)
+        }
+        remove_line(3)
     }
     if input_lines >= 3 {
-        remove_line(input_lines + header_line + 1)
+        if header != "" {
+            remove_line(1)
+        }
+        remove_line(input_lines + 1)
     }
 
     return text
