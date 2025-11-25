@@ -52,7 +52,7 @@ pub fun xyl_input(
     let input_lines = math_ceil(input_display_len / term_width)
 
     if input_lines < 3 {
-        go_down(1)
+        go_down(2 - input_lines)
         remove_line(2)
         remove_current_line()
     }

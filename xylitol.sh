@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Written in [Amber](https://amber-lang.com/)
 # version: 0.4.0-alpha
-# date: 2025-11-26 04:31:48
+# date: 2025-11-26 04:46:32
 replace__0_v0() {
     local source=$1
     local search=$2
@@ -475,7 +475,7 @@ fi
     __AF_math_ceil256_v0__52_23="$__AF_math_ceil256_v0";
     local input_lines="$__AF_math_ceil256_v0__52_23"
     if [ $(echo ${input_lines} '<' 3 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
-        go_down__304_v0 1;
+        go_down__304_v0 $(echo 2 '-' ${input_lines} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
         __AF_go_down304_v0__55_9="$__AF_go_down304_v0";
         echo "$__AF_go_down304_v0__55_9" > /dev/null 2>&1
         remove_line__299_v0 2;
