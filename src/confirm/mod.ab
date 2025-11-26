@@ -2,20 +2,26 @@ import * from "std/env"
 import * from "../utils.ab"
 
 /// Renders the Yes/No selection with background colors
-fun render_confirm_options(selected: Bool): Null {
+/// Uses smaller buttons when terminal width is below 30 characters
+fun render_confirm_options(selected: Bool, term_width: Num): Null {
+    let small = term_width < 30
+    let yes_label = small then " Yes " else "    Yes    "
+    let no_label = small then " No " else "    No    "
+    let gap = small then " " else "  "
+
     eprintf(" ")
     if selected {
         // Yes selected (green background)
-        eprintf("\e[42;37m    Yes    \e[0m")
-        eprintf("  ")
+        eprintf("\e[42;37m" + yes_label + "\e[0m")
+        eprintf(gap)
         // No not selected (dim)
-        eprintf("\e[49;37m    No    \e[0m")
+        eprintf("\e[49;37m" + no_label + "\e[0m")
     } else {
         // Yes not selected (dim)
-        eprintf("\e[49;37m    Yes    \e[0m")
-        eprintf("  ")
+        eprintf("\e[49;37m" + yes_label + "\e[0m")
+        eprintf(gap)
         // No selected (red background)
-        eprintf("\e[41;37m    No    \e[0m")
+        eprintf("\e[41;37m" + no_label + "\e[0m")
     }
 }
 
@@ -45,7 +51,7 @@ pub fun xyl_confirm(
     let selected = default_yes
 
     // Render initial options
-    render_confirm_options(selected)
+    render_confirm_options(selected, term_width)
 
     eprintf("\n\n")
     // "←→ select • enter confirm • y yes • n no" = 9 + 3 + 13 + 3 + 5 + 3 + 4 = 40
@@ -61,12 +67,12 @@ pub fun xyl_confirm(
                     selected {
                         selected = false
                         eprintf("\e[9999D\e[K")
-                        render_confirm_options(selected)
+                        render_confirm_options(selected, term_width)
                     }
                     not selected {
                         selected = true
                         eprintf("\e[9999D\e[K")
-                        render_confirm_options(selected)
+                        render_confirm_options(selected, term_width)
                     }
                 }
             }

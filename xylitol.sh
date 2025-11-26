@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Written in [Amber](https://amber-lang.com/)
 # version: 0.4.0-alpha
-# date: 2025-11-26 12:54:11
+# date: 2025-11-26 13:27:45
 replace__0_v0() {
     local source=$1
     local search=$2
@@ -143,18 +143,19 @@ print_help__226_v0() {
     echo "$__AF_echo_colored105_v0__17_5" > /dev/null 2>&1
     echo "  input             Prompt for some input"
     echo "  choose            Choose from a list of options"
+    echo "  confirm           Prompt for a yes/no confirmation"
     echo ""
     __AMBER_ARRAY_9=("");
     printf__99_v0 "Run " __AMBER_ARRAY_9[@];
-    __AF_printf99_v0__21_5="$__AF_printf99_v0";
-    echo "$__AF_printf99_v0__21_5" > /dev/null 2>&1
+    __AF_printf99_v0__22_5="$__AF_printf99_v0";
+    echo "$__AF_printf99_v0__22_5" > /dev/null 2>&1
     printf_colored__141_v0 "./xylitol.sh <command> --help" 93;
-    __AF_printf_colored141_v0__22_5="$__AF_printf_colored141_v0";
-    echo "$__AF_printf_colored141_v0__22_5" > /dev/null 2>&1
+    __AF_printf_colored141_v0__23_5="$__AF_printf_colored141_v0";
+    echo "$__AF_printf_colored141_v0__23_5" > /dev/null 2>&1
     __AMBER_ARRAY_10=("");
     printf__99_v0 " for more information on a command." __AMBER_ARRAY_10[@];
-    __AF_printf99_v0__23_5="$__AF_printf99_v0";
-    echo "$__AF_printf99_v0__23_5" > /dev/null 2>&1
+    __AF_printf99_v0__24_5="$__AF_printf99_v0";
+    echo "$__AF_printf99_v0__24_5" > /dev/null 2>&1
     echo ""
 }
 math_floor__255_v0() {
@@ -1927,40 +1928,45 @@ fi
 }
 render_confirm_options__715_v0() {
     local selected=$1
+    local term_width=$2
+    local small=$(echo ${term_width} '<' 30 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+    local yes_label=$(if [ ${small} != 0 ]; then echo " Yes "; else echo "    Yes    "; fi)
+    local no_label=$(if [ ${small} != 0 ]; then echo " No "; else echo "    No    "; fi)
+    local gap=$(if [ ${small} != 0 ]; then echo " "; else echo "  "; fi)
     __AMBER_ARRAY_116=("");
     eprintf__677_v0 " " __AMBER_ARRAY_116[@];
-    __AF_eprintf677_v0__6_5="$__AF_eprintf677_v0";
-    echo "$__AF_eprintf677_v0__6_5" > /dev/null 2>&1
+    __AF_eprintf677_v0__12_5="$__AF_eprintf677_v0";
+    echo "$__AF_eprintf677_v0__12_5" > /dev/null 2>&1
     if [ ${selected} != 0 ]; then
         # Yes selected (green background)
         __AMBER_ARRAY_117=("");
-        eprintf__677_v0 "\e[42;37m    Yes    \e[0m" __AMBER_ARRAY_117[@];
-        __AF_eprintf677_v0__9_9="$__AF_eprintf677_v0";
-        echo "$__AF_eprintf677_v0__9_9" > /dev/null 2>&1
+        eprintf__677_v0 "\e[42;37m""${yes_label}""\e[0m" __AMBER_ARRAY_117[@];
+        __AF_eprintf677_v0__15_9="$__AF_eprintf677_v0";
+        echo "$__AF_eprintf677_v0__15_9" > /dev/null 2>&1
         __AMBER_ARRAY_118=("");
-        eprintf__677_v0 "  " __AMBER_ARRAY_118[@];
-        __AF_eprintf677_v0__10_9="$__AF_eprintf677_v0";
-        echo "$__AF_eprintf677_v0__10_9" > /dev/null 2>&1
+        eprintf__677_v0 "${gap}" __AMBER_ARRAY_118[@];
+        __AF_eprintf677_v0__16_9="$__AF_eprintf677_v0";
+        echo "$__AF_eprintf677_v0__16_9" > /dev/null 2>&1
         # No not selected (dim)
         __AMBER_ARRAY_119=("");
-        eprintf__677_v0 "\e[49;37m    No    \e[0m" __AMBER_ARRAY_119[@];
-        __AF_eprintf677_v0__12_9="$__AF_eprintf677_v0";
-        echo "$__AF_eprintf677_v0__12_9" > /dev/null 2>&1
+        eprintf__677_v0 "\e[49;37m""${no_label}""\e[0m" __AMBER_ARRAY_119[@];
+        __AF_eprintf677_v0__18_9="$__AF_eprintf677_v0";
+        echo "$__AF_eprintf677_v0__18_9" > /dev/null 2>&1
 else
         # Yes not selected (dim)
         __AMBER_ARRAY_120=("");
-        eprintf__677_v0 "\e[49;37m    Yes    \e[0m" __AMBER_ARRAY_120[@];
-        __AF_eprintf677_v0__15_9="$__AF_eprintf677_v0";
-        echo "$__AF_eprintf677_v0__15_9" > /dev/null 2>&1
+        eprintf__677_v0 "\e[49;37m""${yes_label}""\e[0m" __AMBER_ARRAY_120[@];
+        __AF_eprintf677_v0__21_9="$__AF_eprintf677_v0";
+        echo "$__AF_eprintf677_v0__21_9" > /dev/null 2>&1
         __AMBER_ARRAY_121=("");
-        eprintf__677_v0 "  " __AMBER_ARRAY_121[@];
-        __AF_eprintf677_v0__16_9="$__AF_eprintf677_v0";
-        echo "$__AF_eprintf677_v0__16_9" > /dev/null 2>&1
+        eprintf__677_v0 "${gap}" __AMBER_ARRAY_121[@];
+        __AF_eprintf677_v0__22_9="$__AF_eprintf677_v0";
+        echo "$__AF_eprintf677_v0__22_9" > /dev/null 2>&1
         # No selected (red background)
         __AMBER_ARRAY_122=("");
-        eprintf__677_v0 "\e[41;37m    No    \e[0m" __AMBER_ARRAY_122[@];
-        __AF_eprintf677_v0__18_9="$__AF_eprintf677_v0";
-        echo "$__AF_eprintf677_v0__18_9" > /dev/null 2>&1
+        eprintf__677_v0 "\e[41;37m""${no_label}""\e[0m" __AMBER_ARRAY_122[@];
+        __AF_eprintf677_v0__24_9="$__AF_eprintf677_v0";
+        echo "$__AF_eprintf677_v0__24_9" > /dev/null 2>&1
 fi
 }
 xyl_confirm__716_v0() {
@@ -1969,68 +1975,68 @@ xyl_confirm__716_v0() {
      stty -echo < /dev/tty ;
     __AS=$?
     hide_cursor__688_v0 ;
-    __AF_hide_cursor688_v0__35_5="$__AF_hide_cursor688_v0";
-    echo "$__AF_hide_cursor688_v0__35_5" > /dev/null 2>&1
+    __AF_hide_cursor688_v0__41_5="$__AF_hide_cursor688_v0";
+    echo "$__AF_hide_cursor688_v0__41_5" > /dev/null 2>&1
     get_term_width__691_v0 ;
-    __AF_get_term_width691_v0__37_22="$__AF_get_term_width691_v0";
-    local term_width="$__AF_get_term_width691_v0__37_22"
+    __AF_get_term_width691_v0__43_22="$__AF_get_term_width691_v0";
+    local term_width="$__AF_get_term_width691_v0__43_22"
     if [ $([ "_${header}" == "_" ]; echo $?) != 0 ]; then
         truncate_text__693_v0 "${header}" ${term_width};
-        __AF_truncate_text693_v0__40_17="${__AF_truncate_text693_v0}";
+        __AF_truncate_text693_v0__46_17="${__AF_truncate_text693_v0}";
         __AMBER_ARRAY_123=("");
-        eprintf__677_v0 "${__AF_truncate_text693_v0__40_17}""
+        eprintf__677_v0 "${__AF_truncate_text693_v0__46_17}""
 
 " __AMBER_ARRAY_123[@];
-        __AF_eprintf677_v0__40_9="$__AF_eprintf677_v0";
-        echo "$__AF_eprintf677_v0__40_9" > /dev/null 2>&1
+        __AF_eprintf677_v0__46_9="$__AF_eprintf677_v0";
+        echo "$__AF_eprintf677_v0__46_9" > /dev/null 2>&1
 else
         new_line__684_v0 1;
-        __AF_new_line684_v0__42_9="$__AF_new_line684_v0";
-        echo "$__AF_new_line684_v0__42_9" > /dev/null 2>&1
+        __AF_new_line684_v0__48_9="$__AF_new_line684_v0";
+        echo "$__AF_new_line684_v0__48_9" > /dev/null 2>&1
 fi
     local selected=${default_yes}
     # Render initial options
-    render_confirm_options__715_v0 ${selected};
-    __AF_render_confirm_options715_v0__48_5="$__AF_render_confirm_options715_v0";
-    echo "$__AF_render_confirm_options715_v0__48_5" > /dev/null 2>&1
+    render_confirm_options__715_v0 ${selected} ${term_width};
+    __AF_render_confirm_options715_v0__54_5="$__AF_render_confirm_options715_v0";
+    echo "$__AF_render_confirm_options715_v0__54_5" > /dev/null 2>&1
     __AMBER_ARRAY_124=("");
     eprintf__677_v0 "
 
 " __AMBER_ARRAY_124[@];
-    __AF_eprintf677_v0__50_5="$__AF_eprintf677_v0";
-    echo "$__AF_eprintf677_v0__50_5" > /dev/null 2>&1
+    __AF_eprintf677_v0__56_5="$__AF_eprintf677_v0";
+    echo "$__AF_eprintf677_v0__56_5" > /dev/null 2>&1
     # "←→ select • enter confirm • y yes • n no" = 9 + 3 + 13 + 3 + 5 + 3 + 4 = 40
     __AMBER_ARRAY_125=("←→" "select" "enter" "confirm" "y" "yes" "n" "no");
     render_tooltip__694_v0 __AMBER_ARRAY_125[@] 40 ${term_width};
-    __AF_render_tooltip694_v0__52_5="$__AF_render_tooltip694_v0";
-    echo "$__AF_render_tooltip694_v0__52_5" > /dev/null 2>&1
+    __AF_render_tooltip694_v0__58_5="$__AF_render_tooltip694_v0";
+    echo "$__AF_render_tooltip694_v0__58_5" > /dev/null 2>&1
     go_up__685_v0 2;
-    __AF_go_up685_v0__53_5="$__AF_go_up685_v0";
-    echo "$__AF_go_up685_v0__53_5" > /dev/null 2>&1
+    __AF_go_up685_v0__59_5="$__AF_go_up685_v0";
+    echo "$__AF_go_up685_v0__59_5" > /dev/null 2>&1
     while :
 do
         get_key__675_v0 ;
-        __AF_get_key675_v0__56_19="${__AF_get_key675_v0}";
-        local key="${__AF_get_key675_v0__56_19}"
+        __AF_get_key675_v0__62_19="${__AF_get_key675_v0}";
+        local key="${__AF_get_key675_v0__62_19}"
         if [ $(echo $(echo $(echo $([ "_${key}" != "_LEFT" ]; echo $?) '||' $([ "_${key}" != "_h" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '||' $([ "_${key}" != "_RIGHT" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') '||' $([ "_${key}" != "_l" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
             if [ ${selected} != 0 ]; then
                 selected=0
                 __AMBER_ARRAY_126=("");
                 eprintf__677_v0 "\e[9999D\e[K" __AMBER_ARRAY_126[@];
-                __AF_eprintf677_v0__63_25="$__AF_eprintf677_v0";
-                echo "$__AF_eprintf677_v0__63_25" > /dev/null 2>&1
-                render_confirm_options__715_v0 ${selected};
-                __AF_render_confirm_options715_v0__64_25="$__AF_render_confirm_options715_v0";
-                echo "$__AF_render_confirm_options715_v0__64_25" > /dev/null 2>&1
+                __AF_eprintf677_v0__69_25="$__AF_eprintf677_v0";
+                echo "$__AF_eprintf677_v0__69_25" > /dev/null 2>&1
+                render_confirm_options__715_v0 ${selected} ${term_width};
+                __AF_render_confirm_options715_v0__70_25="$__AF_render_confirm_options715_v0";
+                echo "$__AF_render_confirm_options715_v0__70_25" > /dev/null 2>&1
 elif [ $(echo  '!' ${selected} | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
                 selected=1
                 __AMBER_ARRAY_127=("");
                 eprintf__677_v0 "\e[9999D\e[K" __AMBER_ARRAY_127[@];
-                __AF_eprintf677_v0__68_25="$__AF_eprintf677_v0";
-                echo "$__AF_eprintf677_v0__68_25" > /dev/null 2>&1
-                render_confirm_options__715_v0 ${selected};
-                __AF_render_confirm_options715_v0__69_25="$__AF_render_confirm_options715_v0";
-                echo "$__AF_render_confirm_options715_v0__69_25" > /dev/null 2>&1
+                __AF_eprintf677_v0__74_25="$__AF_eprintf677_v0";
+                echo "$__AF_eprintf677_v0__74_25" > /dev/null 2>&1
+                render_confirm_options__715_v0 ${selected} ${term_width};
+                __AF_render_confirm_options715_v0__75_25="$__AF_render_confirm_options715_v0";
+                echo "$__AF_render_confirm_options715_v0__75_25" > /dev/null 2>&1
 fi
 elif [ $(echo $([ "_${key}" != "_y" ]; echo $?) '||' $([ "_${key}" != "_Y" ]; echo $?) | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') != 0 ]; then
             selected=1
@@ -2050,19 +2056,19 @@ done
         total_lines=$(echo ${total_lines} '+' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
 fi
     go_down__686_v0 2;
-    __AF_go_down686_v0__94_5="$__AF_go_down686_v0";
-    echo "$__AF_go_down686_v0__94_5" > /dev/null 2>&1
+    __AF_go_down686_v0__100_5="$__AF_go_down686_v0";
+    echo "$__AF_go_down686_v0__100_5" > /dev/null 2>&1
     remove_line__681_v0 $(echo ${total_lines} '-' 1 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//');
-    __AF_remove_line681_v0__95_5="$__AF_remove_line681_v0";
-    echo "$__AF_remove_line681_v0__95_5" > /dev/null 2>&1
+    __AF_remove_line681_v0__101_5="$__AF_remove_line681_v0";
+    echo "$__AF_remove_line681_v0__101_5" > /dev/null 2>&1
     remove_current_line__682_v0 ;
-    __AF_remove_current_line682_v0__96_5="$__AF_remove_current_line682_v0";
-    echo "$__AF_remove_current_line682_v0__96_5" > /dev/null 2>&1
+    __AF_remove_current_line682_v0__102_5="$__AF_remove_current_line682_v0";
+    echo "$__AF_remove_current_line682_v0__102_5" > /dev/null 2>&1
      stty echo < /dev/tty ;
     __AS=$?
     show_cursor__689_v0 ;
-    __AF_show_cursor689_v0__99_5="$__AF_show_cursor689_v0";
-    echo "$__AF_show_cursor689_v0__99_5" > /dev/null 2>&1
+    __AF_show_cursor689_v0__105_5="$__AF_show_cursor689_v0";
+    echo "$__AF_show_cursor689_v0__105_5" > /dev/null 2>&1
     __AF_xyl_confirm716_v0=${selected};
     return 0
 }

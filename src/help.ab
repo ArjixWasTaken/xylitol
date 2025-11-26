@@ -17,6 +17,7 @@ pub fun print_help() {
     echo_colored("Commands: ", 96)
     echo "  input             Prompt for some input"
     echo "  choose            Choose from a list of options"
+    echo "  confirm           Prompt for a yes/no confirmation"
     echo ""
     printf("Run ")
     printf_colored("./xylitol.sh <command> --help", 93)
