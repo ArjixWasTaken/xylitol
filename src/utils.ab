@@ -2,7 +2,7 @@ import { printf } from "std/env"
 import * from "std/text"
 
 pub fun get_char(): Text {
-    let char = trust $ read -n 1 key < /dev/tty; printf "%s" "\$key"$
+    let char = trust $ read -n 1 key < /dev/tty; printf "%s" "\$key" $
     return char
 }
 

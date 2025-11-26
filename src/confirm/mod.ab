@@ -38,6 +38,8 @@ pub fun xyl_confirm(
 
     if header != "" {
         eprintf(truncate_text(header, term_width) + "\n\n")
+    } else {
+        new_line(1)
     }
 
     let selected = default_yes

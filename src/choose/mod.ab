@@ -224,14 +224,13 @@ pub fun xyl_choose(
         }
     }
 
-    let info_lines = 2
-    let total_lines = display_count + 1
+    let total_lines = display_count + 2
     if header != "" {
         total_lines += 1
     }
 
-    go_down(info_lines)
-    remove_line(total_lines)
+    go_down(1)
+    remove_line(total_lines - 1)
     remove_current_line()
 
     trust $ stty echo < /dev/tty $
@@ -447,14 +446,13 @@ pub fun xyl_multi_choose(
         }
     }
 
-    let info_lines = 2
-    let total_lines = display_count + 1
+    let total_lines = display_count + 2
     if header != "" {
         total_lines += 1
     }
 
-    go_down(info_lines)
-    remove_line(total_lines)
+    go_down(1)
+    remove_line(total_lines - 1)
     remove_current_line()
 
     let result = [Text]
