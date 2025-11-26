@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Written in [Amber](https://amber-lang.com/)
 # version: 0.4.0-alpha
-# date: 2025-11-26 11:43:18
+# date: 2025-11-26 12:54:11
 replace__0_v0() {
     local source=$1
     local search=$2
@@ -313,7 +313,7 @@ fi
     __AMBER_VAL_25=$( printf "%s" "${text}" | cut -c1-$(echo ${max_width} '-' 3 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') );
     __AS=$?;
     local truncated="${__AMBER_VAL_25}"
-    __AF_truncate_text311_v0="${truncated}""...""\e[0m";
+    __AF_truncate_text311_v0="${truncated}""...";
     return 0
 }
 render_tooltip__312_v0() {
@@ -754,7 +754,7 @@ fi
     __AMBER_VAL_50=$( printf "%s" "${text}" | cut -c1-$(echo ${max_width} '-' 3 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') );
     __AS=$?;
     local truncated="${__AMBER_VAL_50}"
-    __AF_truncate_text490_v0="${truncated}""...""\e[0m";
+    __AF_truncate_text490_v0="${truncated}""...";
     return 0
 }
 render_tooltip__491_v0() {
@@ -1857,7 +1857,7 @@ fi
     __AMBER_VAL_113=$( printf "%s" "${text}" | cut -c1-$(echo ${max_width} '-' 3 | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//') );
     __AS=$?;
     local truncated="${__AMBER_VAL_113}"
-    __AF_truncate_text693_v0="${truncated}""...""\e[0m";
+    __AF_truncate_text693_v0="${truncated}""...";
     return 0
 }
 render_tooltip__694_v0() {

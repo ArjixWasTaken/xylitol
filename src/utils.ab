@@ -136,7 +136,7 @@ pub fun truncate_text(text: Text, max_width: Num): Text {
         return text
     }
     let truncated = trust $ printf "%s" "{text}" | cut -c1-{max_width - 3} $
-    return truncated + "..." + "\e[0m"
+    return truncated + "..."
 }
 
 
