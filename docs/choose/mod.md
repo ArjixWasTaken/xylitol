@@ -31,7 +31,7 @@ fun render_page_indicator(page: Num, total_pages: Num): Null
 ## `xyl_choose`
 
 ```ab
-pub fun xyl_choose(options: [Text], cursor: Text = "> ", header: Text = "\e[1mChoose:\e[0m", page_size: Num = 10,): Text 
+pub fun xyl_choose(options: [Text], cursor: Text = "> ", header: Text = "\x1b[1mChoose:\x1b[0m", page_size: Num = 10,): Text 
 ```
 
 Prompts the user to choose a single option from a list.

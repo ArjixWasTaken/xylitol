@@ -7,8 +7,8 @@ let _term_size = [80, 24]
 
 /// Get the terminal size (columns, rows) using ANSI escape sequence.
 fun get_term_size(): Null? {
-    // Query terminal size with \e[18t, response format: \e[8;rows;colst
-    let result = trust $ printf '\e[18t' > /dev/tty; IFS=';' read -rsd t _ignore height width < /dev/tty; echo "\$height; \$width" $
+    // Query terminal size with \x1b[18t, response format: \x1b[8;rows;colst
+    let result = trust $ printf '\x1b[18t' > /dev/tty; IFS=';' read -rsd t _ignore height width < /dev/tty; echo "\$height; \$width" $
     let parts = split(result, ";")
     if len(parts) != 2 {
         fail

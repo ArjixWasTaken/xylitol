@@ -43,22 +43,22 @@ fun get_supports_truecolor(): Bool {
 pub fun colored_rgb(message: Text, r: Num, g: Num, b: Num, fallback: Num = 0): Text {
     if {
         _supports_truecolor == "Yes": {
-            return "\e[38;2;{r as Text};{g as Text};{b as Text}m" + message + "\e[0m"
+            return "\x1b[38;2;{r as Text};{g as Text};{b as Text}m" + message + "\x1b[0m"
         }
         _supports_truecolor == "None": {
             if {
                 get_supports_truecolor(): {
-                    return "\e[38;2;{r as Text};{g as Text};{b as Text}m" + message + "\e[0m"
+                    return "\x1b[38;2;{r as Text};{g as Text};{b as Text}m" + message + "\x1b[0m"
                 }
                 fallback == 0: return message
-                else: return "\e[{fallback as Text}m" + message + "\e[0m"
+                else: return "\x1b[{fallback as Text}m" + message + "\x1b[0m"
             }
         }
         else {
             if fallback == 0 {
                 return message
             }
-            return "\e[{fallback as Text}m" + message + "\e[0m"
+            return "\x1b[{fallback as Text}m" + message + "\x1b[0m"
         }
     }
 }
@@ -85,22 +85,22 @@ pub fun background_rgb(message: Text, r: Num, g: Num, b: Num, fallback: Num = 0)
 
     if {
         _supports_truecolor == "Yes": {
-            return "\e[48;2;{r as Text};{g as Text};{b as Text}m" + message + "\e[0m"
+            return "\x1b[48;2;{r as Text};{g as Text};{b as Text}m" + message + "\x1b[0m"
         }
         _supports_truecolor == "None": {
             if {
                 get_supports_truecolor(): {
-                    return "\e[48;2;{r as Text};{g as Text};{b as Text}m" + message + "\e[0m"
+                    return "\x1b[48;2;{r as Text};{g as Text};{b as Text}m" + message + "\x1b[0m"
                 }
                 bg_fallback == 0: return message
-                else: return "\e[{bg_fallback as Text}m" + message + "\e[0m"
+                else: return "\x1b[{bg_fallback as Text}m" + message + "\x1b[0m"
             }
         }
         else {
             if bg_fallback == 0 {
                 return message
             }
-            return "\e[{bg_fallback as Text}m" + message + "\e[0m"
+            return "\x1b[{bg_fallback as Text}m" + message + "\x1b[0m"
         }
     }
 }

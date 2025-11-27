@@ -14,15 +14,15 @@ fun render_confirm_options(selected: Bool, term_width: Num): Null {
     eprintf(" ")
     if selected {
         // Yes selected
-        eprintf("\e[97m" + background_secondary(yes_label))
+        eprintf("\x1b[97m" + background_secondary(yes_label))
         eprintf(gap)
         // No not selected (dim)
-        eprintf("\e[49;37m" + no_label + "\e[0m")
+        eprintf("\x1b[49;37m" + no_label + "\x1b[0m")
     } else {
         // No selected
-        eprintf("\e[49;37m" + yes_label + "\e[0m")
+        eprintf("\x1b[49;37m" + yes_label + "\x1b[0m")
         eprintf(gap)
-        eprintf("\e[97m" + background_secondary(no_label))
+        eprintf("\x1b[97m" + background_secondary(no_label))
     }
 }
 
@@ -44,9 +44,7 @@ pub fun xyl_confirm(
     let term_width = term_width()
 
     if header != "" {
-        eprintf(truncate_text(header, term_width) + "\n\n")
-    } else {
-        new_line(1)
+        eprintf(cutoff_text(header, term_width) + "\n\n")
     }
 
     let selected = default_yes
@@ -67,12 +65,12 @@ pub fun xyl_confirm(
                 if {
                     selected {
                         selected = false
-                        eprintf("\e[9999D\e[K")
+                        eprintf("\x1b[9999D\x1b[K")
                         render_confirm_options(selected, term_width)
                     }
                     not selected {
                         selected = true
-                        eprintf("\e[9999D\e[K")
+                        eprintf("\x1b[9999D\x1b[K")
                         render_confirm_options(selected, term_width)
                     }
                 }

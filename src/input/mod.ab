@@ -21,14 +21,14 @@ pub fun xyl_input(
     let term_width = term_width()
 
     if header != "" {
-        eprintf(truncate_text(header, term_width) + "\n")
+        eprintf(cutoff_text(header, term_width) + "\n")
     }
 
     new_line(2)
     // "enter submit" = 12
     render_tooltip(["enter", "submit"], 12, term_width)
     go_up(2)
-    eprintf("\e[99999D")
+    eprintf("\x1b[99999D")
 
     eprintf(prompt)
     eprintf_colored(placeholder, 90)
@@ -49,7 +49,7 @@ pub fun xyl_input(
     trust $ stty -echo < /dev/tty $
 
     // Calculate how many lines the input takes up (prompt + text may wrap)
-    let input_display_len = len(prompt + text)
+    let input_display_len = get_visible_len(prompt + text)
     let input_lines = math_ceil(input_display_len / term_width)
 
     if input_lines < 3 {

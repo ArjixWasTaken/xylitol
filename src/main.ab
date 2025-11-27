@@ -6,6 +6,7 @@ import { print_help } from "./help.ab"
 import { execute_input } from "./input/exec.ab"
 import { execute_choose } from "./choose/exec.ab"
 import { execute_confirm } from "./confirm/exec.ab"
+import { execute_file } from "./file/exec.ab"
 
 const VERSION = "0.1.0"
 const AMBER_VERSION = "0.4.0"
@@ -23,7 +24,8 @@ fun check_prerequirements(): Bool {
 }
 
 fun trap_cleanup(): Null {
-    trust $ trap 'printf "\e[?25h\e[0m" >&2; stty echo < /dev/tty' EXIT $
+    trust $ trap 'printf "\x1b[?25h\x1b[0m" >&2; 
+            stty echo < /dev/tty' EXIT $
 }
 
 main(arguments) {
@@ -47,6 +49,9 @@ main(arguments) {
                 result == "yes": exit(0)
                 else: exit(1)
             }
+        }
+        arguments[1] == "file": {
+            echo execute_file(arguments)
         }
         arguments[1] == "version" or arguments[1] == "--version" or arguments[1] == "-v": {
             printf(colored_primary("xylitol.sh"))
