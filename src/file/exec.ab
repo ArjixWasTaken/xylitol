@@ -1,5 +1,5 @@
-import * from "./mod.ab"
 import * from "std/text"
+import * from "./mod.ab"
 import * from "./help.ab"
 import * from "../utils.ab"
 

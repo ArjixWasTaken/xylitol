@@ -4,7 +4,6 @@ import * from "std/env"
 import * from "./mod.ab"
 import * from "./help.ab"
 import * from "../utils.ab"
-import * from "../utils/truecolor.ab"
 
 pub fun execute_confirm(parameters: [Text]): Text {
     let header = "\x1b[1m" + colored_primary("Are you sure?")

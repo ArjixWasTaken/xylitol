@@ -1,6 +1,5 @@
 #!/usr/bin/env amber
 import * from "./utils.ab"
-import * from "./utils/truecolor.ab"
 import { printf } from "std/env"
 import { print_help } from "./help.ab"
 import { execute_input } from "./input/exec.ab"

@@ -10,8 +10,8 @@ let _supports_truecolor = "None"
 /// A global variable indicating if the Xylitol colors have been loaded from environment variables.
 let _got_xylitol_colors = false
 let _primary_color = [3, 207, 159, 92]
-let _secondary_color = [3, 118, 206, 95]
-let _accent_color = [234, 72, 121, 94]
+let _secondary_color = [3, 118, 206, 94]
+let _accent_color = [234, 72, 121, 95]
 
 
 /// Checks if the terminal supports 24-bit true color.

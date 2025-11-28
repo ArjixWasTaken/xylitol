@@ -1,6 +1,9 @@
 import { printf } from "std/env"
 import * from "std/text"
-import * from "utils/perl.ab" 
+pub import * from "utils/fs.ab" 
+pub import * from "utils/perl.ab"
+pub import * from "utils/term.ab"
+pub import * from "utils/truecolor.ab"
 
 ///// IO Functions /////
 

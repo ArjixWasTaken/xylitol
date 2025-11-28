@@ -1,8 +1,7 @@
+import * from "std/text"
 import * from "./mod.ab"
 import * from "./help.ab"
-import * from "std/text"
 import * from "../utils.ab"
-import * from "../utils/truecolor.ab"
 
 pub fun execute_input(parameters: [Text]): Text {
     let prompt = "> "

@@ -1,7 +1,5 @@
 import * from "std/env"
 import * from "../utils.ab"
-import * from "../utils/truecolor.ab"
-import * from "../utils/term.ab"
 
 /// Renders the Yes/No selection with background colors
 /// Uses smaller buttons when terminal width is below 30 characters
@@ -38,7 +36,7 @@ pub fun xyl_confirm(
     header: Text = "Are you sure?",
     default_yes: Bool = true,
 ): Bool {
-    trust $ stty -echo < /dev/tty $
+    stty_lock()
     hide_cursor()
 
     let term_width = term_width()
@@ -100,7 +98,7 @@ pub fun xyl_confirm(
     remove_line(total_lines - 1)
     remove_current_line()
 
-    trust $ stty echo < /dev/tty $
+    stty_unlock()
     show_cursor()
 
     return selected

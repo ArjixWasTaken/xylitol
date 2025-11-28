@@ -1,9 +1,6 @@
 import * from "std/env"
 import * from "std/text"
 import * from "../utils.ab"
-import * from "../utils/truecolor.ab"
-import * from "../utils/term.ab"
-import * from "../utils/fs.ab"
 import { xyl_choose } from "../choose/mod.ab"
 
 /// Format a single entry for display
@@ -34,7 +31,7 @@ pub fun xyl_file(
     show_hidden: Bool = false,
     page_size: Num = 10,
 ): Text {
-    trust $ stty -echo < /dev/tty $
+    stty_lock()
 
     let term_width = term_width()
     let max_entry_width = term_width - len(cursor) - 1
@@ -76,7 +73,7 @@ pub fun xyl_file(
 
         if len(entries) == 0 {
             eprintf_colored("ERROR: Directory is empty or inaccessible.\n", 31)
-            trust $ stty echo < /dev/tty $
+            stty_unlock()
             return ""
         }
 
@@ -85,7 +82,6 @@ pub fun xyl_file(
 
         remove_current_line()
         let selected_option = xyl_choose(options, cursor, header, page_size)
-        trust $ stty -echo < /dev/tty $
 
         // Find selected entry index
         let selected_idx = -1
@@ -118,17 +114,17 @@ pub fun xyl_file(
                     current_path = entry[2]
                     current_path = normalize_path(current_path)
                 } else {
-                    trust $ stty echo < /dev/tty $
+                    stty_unlock()
                     return path_join(current_path, entry[2])
                 }
             }
             else: {
-                trust $ stty echo < /dev/tty $
+                stty_unlock()
                 return path_join(current_path, name)
             }
         }
     }
 
-    trust $ stty echo < /dev/tty $
+    stty_unlock()
     return ""
 }

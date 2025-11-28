@@ -1,8 +1,7 @@
-import * from "./mod.ab"
 import * from "std/text"
+import * from "./mod.ab"
 import * from "./help.ab"
 import * from "../utils.ab"
-import * from "../utils/truecolor.ab"
 
 fun read_stdin_options(): [Text] {
     let options = [Text]

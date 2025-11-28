@@ -3,7 +3,34 @@ import { split, parse_number } from "std/text"
 /// global variables to store terminal size
 /// (prevent multiple queries in one session)
 let _got_term_size = false
-let _term_size = [80, 24] 
+let _term_size = [80, 24]
+
+/// stty lock/unlock using environment variable for cross-module state
+trust $ export XYLITOL_RUNTIME_STTY_COUNT=0 $
+
+/// Lock the terminal (disable echo). Uses reference counting via environment variable.
+pub fun stty_lock(): Null {
+    let count = trust $ echo "\$\{XYLITOL_RUNTIME_STTY_COUNT:-0}" $
+    let count_num = parse_number(count) failed { 0 }
+    if count_num == 0 {
+        trust $ stty -echo < /dev/tty $
+    }
+    count_num += 1
+    trust $ export XYLITOL_RUNTIME_STTY_COUNT={count_num} $
+}
+
+/// Unlock the terminal (enable echo). Uses reference counting via environment variable.
+pub fun stty_unlock(): Null {
+    let count = trust $ echo "\$\{XYLITOL_RUNTIME_STTY_COUNT:-0}" $
+    let count_num = parse_number(count) failed { 0 }
+    if count_num > 0 {
+        count_num -= 1
+        trust $ export XYLITOL_RUNTIME_STTY_COUNT={count_num} $
+        if count_num == 0 {
+            trust $ stty echo < /dev/tty $
+        }
+    }
+}
 
 /// Get the terminal size (columns, rows) using ANSI escape sequence.
 fun get_term_size(): Null? {

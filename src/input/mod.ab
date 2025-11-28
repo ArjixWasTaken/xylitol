@@ -1,7 +1,6 @@
 import * from "std/env"
 import * from "std/math"
 import * from "../utils.ab"
-import * from "../utils/term.ab"
 
 /// Prompts the user single-line input with a placeholder.
 ///
@@ -11,12 +10,12 @@ import * from "../utils/term.ab"
 /// - `header`: An optional header message to display above the prompt. (ANSI supported)
 /// - `password`: A boolean indicating whether the input should be masked.
 pub fun xyl_input(
-    prompt: Text, 
+    prompt: Text,
     placeholder: Text,
     header: Text = "",
     password: Bool = false,
 ): Text {
-    trust $ stty -echo < /dev/tty $
+    stty_lock()
 
     let term_width = term_width()
 
@@ -39,14 +38,14 @@ pub fun xyl_input(
 
     let text = ""
     if not password {
-        trust $ stty echo < /dev/tty $
+        stty_unlock()
         text = trust $ read -e -i {char} -p "{prompt}" text < /dev/tty; printf "%s" "\$text" $
     } else {
-        trust $ stty echo < /dev/tty $
+        stty_unlock()
         text = trust $ read -es -i {char} -p "{prompt}" text < /dev/tty; printf "%s" "\$text" $
     }
 
-    trust $ stty -echo < /dev/tty $
+    stty_lock()
 
     // Calculate how many lines the input takes up (prompt + text may wrap)
     let input_display_len = get_visible_len(prompt + text)
@@ -65,6 +64,6 @@ pub fun xyl_input(
         remove_current_line()
     }
 
-    trust $ stty echo < /dev/tty $
+    stty_unlock()
     return text
 }

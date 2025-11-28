@@ -1,5 +1,5 @@
 import * from "std/env"
-import * from "../utils/truecolor.ab"
+import * from "../utils.ab"
 
 pub fun print_input_help(): Null {
     echo "Usage: ./xylitol.sh input [flags]"

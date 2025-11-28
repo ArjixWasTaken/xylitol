@@ -1,5 +1,4 @@
 import * from "std/env"
-import * from "./utils/truecolor.ab"
 import * from "./utils.ab"
 
 pub fun print_help() {
@@ -25,8 +24,8 @@ pub fun print_help() {
     printf("  $XYLITOL_USE_PERL          Use Perl for CJK / Optimization " + colored("(\"Yes\" or \"No\", default: Yes)", 90) + "\n")
     printf("  $XYLITOL_TRUECOLOR         Enable 24-bit truecolor support " + colored("(\"Yes\" or \"No\", default: Yes)", 90) + "\n")
     printf("  $XYLITOL_PRIMARY_COLOR     Set the primary color " + colored("(default: 3;207;159;92)", 90) + "\n")
-    printf("  $XYLITOL_SECONDARY_COLOR   Set the secondary color " + colored("(default: 3;118;206;95)", 90) + "\n")
-    printf("  $XYLITOL_ACCENT_COLOR      Set the accent color " + colored("(default: 234;72;121;94)", 90) + "\n")
+    printf("  $XYLITOL_SECONDARY_COLOR   Set the secondary color " + colored("(default: 3;118;206;94)", 90) + "\n")
+    printf("  $XYLITOL_ACCENT_COLOR      Set the accent color " + colored("(default: 234;72;121;95)", 90) + "\n")
     echo ""
     printf("Run " + colored_accent("./xylitol.sh <command> --help") + " for more information on a command.\n") 
 }

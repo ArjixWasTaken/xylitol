@@ -1,8 +1,6 @@
 import * from "std/env"
 import * from "std/math"
 import * from "../utils.ab"
-import * from "../utils/truecolor.ab"
-import * from "../utils/term.ab"
 
 fun get_page_options(options: [Text], page: Num, page_size: Num): [Text] {
     let start = page * page_size
@@ -95,7 +93,7 @@ pub fun xyl_choose(
         exit(1)
     }
 
-    trust $ stty -echo < /dev/tty $
+    stty_lock()
     hide_cursor()
 
     let term_width = term_width()
@@ -240,7 +238,7 @@ pub fun xyl_choose(
     remove_line(total_lines - 1)
     remove_current_line()
 
-    trust $ stty echo < /dev/tty $
+    stty_unlock()
     show_cursor()
     let global_selected = current_page * page_size + selected
     return options[global_selected]
@@ -276,7 +274,7 @@ pub fun xyl_multi_choose(
         return [Text]
     }
 
-    trust $ stty -echo < /dev/tty $
+    stty_lock()
     hide_cursor()
 
     let term_width = term_width()
@@ -476,7 +474,7 @@ pub fun xyl_multi_choose(
         }
     }
 
-    trust $ stty echo < /dev/tty $
+    stty_unlock()
     show_cursor()
 
     return result
